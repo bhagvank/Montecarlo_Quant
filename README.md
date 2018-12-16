@@ -32,3 +32,23 @@ If we set the last qubit as zero, then Qf acts as a subroutine which will update
 A practical implementation of some of these algorithms on a hypothetical quantum computer and its betterment is the original motto of this project. We specifically focus on MC pricing of financial derivatives and how the arrangement of probability distributions can leverage the advantages of quantum superposition and thus accelerate the simulation. The prices of derivatives are extracted through quantum measurements with high confidence. We expect a quadratic speed up as reported in recent literature (Patrick Rebentrost, (2018)). 
 
 After the financial crisis of 2008-2009, it's essential for the government and banks to estimate the risk exposure of the financial institutions. Such risks follow the nomenclature XVA where X stands for the type of risk associated and VA for value adjustment.  Different MC simulations performed overnight assesses the risk under different scenarios. Reducing the time-consumption of these overnight calculations facilitates the institutions to take actions following the changing market conditions. 
+
+
+## Prerequisites
+
+1. Ensure that  python3 is installed.
+
+  * [Python3](https://www.python.org/downloads/)
+
+
+2.git clone this repository
+```
+git clone https://github.com/bhagvank/Montecarlo_Quant.git
+
+```
+3. Run helloworld and estimator examples
+```
+python3 monteCarlo.py
+python3 estimator.py
+
+```
