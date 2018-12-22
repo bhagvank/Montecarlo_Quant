@@ -23,12 +23,11 @@ Step 3: Code Review by Core Committer(s)
 If your pull request meets the requirements and it hasn't been rejected by a product owner,
 then it will be scheduled for code review by one or more core committers. This
 process sometimes takes awhile: most of the core committers on the project
-are employees of edX, and they have to balance their time between code review
+are members of the project, and they have to balance their time between code review
 and new development.
 
 Step 4: Merge!
 ==============
 
 Once the core committers are satisfied that your pull request is ready to go,
-one of them will merge it for you. Your code will end up on the edX production
-servers in the next release, which usually which happens every week. Congrats!
+one of them will merge it for you. Your code will end up in the next release, which usually which happens every week. Congrats!
