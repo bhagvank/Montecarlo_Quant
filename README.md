@@ -53,9 +53,14 @@ pipenv install
 ```
 pipenv shell
 ```
-4. Run helloworld and estimator examples
+5. Run helloworld and estimator examples
 ```
 python monteCarlo.py
 python estimator.py
 
 ```
+6. Exit the shell
+```
+exit
+```
+
