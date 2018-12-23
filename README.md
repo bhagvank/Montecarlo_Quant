@@ -44,9 +44,18 @@ After the financial crisis of 2008-2009, it's essential for the government and b
 git clone https://github.com/bhagvank/Montecarlo_Quant.git
 
 ```
-3. Run helloworld and estimator examples
+3. Pipenv install : install the packages required
 ```
-python3 monteCarlo.py
-python3 estimator.py
+pipenv install
+```
+
+4. Pipenv shell : Run the virtual env 
+```
+pipenv shell
+```
+4. Run helloworld and estimator examples
+```
+python monteCarlo.py
+python estimator.py
 
 ```
