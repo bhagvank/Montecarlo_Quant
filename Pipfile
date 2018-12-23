@@ -1,0 +1,6 @@
+# Pipfile
+
+[requires]
+python_version = "3.6.4"
+
+[packages]
