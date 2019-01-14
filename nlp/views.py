@@ -184,7 +184,7 @@ def signin(request):
     username = request.POST['useremail']
     password = request.POST['password']
     confirmPassword = request.POST['confirmPassword']
-    slackToken = request.POST['slacktoken']
+    #slackToken = request.POST['slacktoken']
     print("password, confirmPassword",password,confirmPassword)
 
     #if confirmPassword == password:
@@ -192,17 +192,17 @@ def signin(request):
     error_confirm_password = None
     error_username = None
     error_password = None
-    error_slack_token =  None
+    #error_slack_token =  None
     #template_name = 'nlp/signup.html'
 
     error_username = _validate_username(username)
     error_password, error_confirm_password = _validate_password(password,confirmPassword)
-    error_slack_token = _validate_slack_token(slackToken)
+    #error_slack_token = _validate_slack_token(slackToken)
     
-    if error_username == None and error_password == None and error_confirm_password == None and error_slack_token == None:
+    if error_username == None and error_password == None and error_confirm_password == None:
        if password == confirmPassword:
                #print("password is equal to confirmPassword") 
-          user = SlackUser(username=username,password=password,slacktoken=slackToken)
+          #user = SlackUser(username=username,password=password,slacktoken=slackToken)
           user.save()
 
           template_name = 'nlp/login.html'
@@ -216,8 +216,7 @@ def signin(request):
       
     context = {'error_confirm_password': error_confirm_password,
                 'error_useremail': error_username,
-                'error_password': error_password,
-                'error_slack_token': error_slack_token 
+                'error_password': error_password 
                 }
     # context_object_name = 'channels'
     return render(request, template_name,context)
