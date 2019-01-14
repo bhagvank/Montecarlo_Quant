@@ -1,0 +1,57 @@
+{% extends "nlp/base.html" %}
+{% load mathfilters %}
+{% block title %}Messages{% endblock %}
+
+
+{% block content %}
+
+
+
+<div class="bs-docs-section">
+
+      <br>
+
+    <div class="row" style="margin-bottom: 2rem;">
+          <div class="col-lg-6">
+            <h2 id="nav-tabs">NLP Search</h2>
+             <br>
+              <br>
+            <div class="bs-component">
+              <ul class="nav nav-tabs">
+                <li class="nav-item">
+                  <a class="nav-link active" data-toggle="tab" href="#home">Messages</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" data-toggle="tab" href="#profile">Sentiments</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" data-toggle="tab" href="#dropdown1">Entities</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" data-toggle="tab" href="#dropdown2">Entity Sentiments</a>
+                </li>
+
+              </ul>
+              <div id="myTabContent" class="tab-content">
+                <div class="tab-pane fade show active" id="home">
+                   {% include 'nlp/search_messages.html' %}
+                </div>
+                <div class="tab-pane fade" id="profile">
+                   {% include 'nlp/search_sentiments.html' %}
+                </div>
+                <div class="tab-pane fade" id="dropdown1">
+                   {% include 'nlp/search_entities.html' %}                 
+                </div>
+                <div class="tab-pane fade" id="dropdown2">
+                   {% include 'nlp/search_entity_sentiments.html' %}                         
+                </div>
+
+               </div>
+            </div>
+          </div>    
+        </div>
+    </div>  
+    
+
+{% endblock %}
+

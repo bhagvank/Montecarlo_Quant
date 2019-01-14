@@ -1,0 +1,63 @@
+{% extends "nlp/base.html" %}
+{% load static %}
+{% block title %}Home{% endblock %}
+
+{% block header %}
+    <div class="container">
+
+      <div class="page-header" id="banner">
+        <div class="row">
+          <div class="col-lg-8 col-md-7 col-sm-6">
+            <h1>OpenSource AI</h1>
+            <p class="lead"> NLP for Slack</p>
+          </div>
+          <div class="col-lg-4 col-md-5 col-sm-6">
+            <div class="sponsor">
+              <img src="{% static 'nlp/images/logo.jpg' %}" width="150" height="150" class="center" align="middle">    
+
+            </div>
+          </div>
+        </div>
+      </div>  
+    
+  <div class="bs-docs-section clearfix">  
+     <div class="bs-component">
+              <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+                <a class="navbar-brand" href="#">SlackNLP</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+                  <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarColor01">
+                  <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                      <a class="nav-link" href="/nlp/index">Channels <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="/nlp">Sign Out</a>
+                    </li>
+                  </ul>
+                  <form class="form-inline my-2 my-lg-0" action="/nlp/search/" method="post">
+                    {% csrf_token %}
+                    <input class="form-control mr-sm-2" type="text" placeholder="Search" name="Search" id="Search">
+                    <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+                  </form>
+                </div>
+              </nav>
+    </div>
+  </div>
+
+   
+    {% endblock %}
+
+{% block content %}
+
+
+        <BR>
+        <BR>
+        <BR>        
+        Welcome to Slack NLP
+        <BR>
+        <BR>
+        <BR>
+ {% endblock %}

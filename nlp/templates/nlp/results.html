@@ -1,0 +1,82 @@
+{% extends "nlp/base.html" %}
+{% block title %}Threads{% endblock %}
+
+
+{% block content %}
+
+{% if sentiments %} 
+<div class="bs-docs-section">
+
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="page-header">
+              <h2 id="tables">{{channel}}- User Name: {{user}}</h2>
+            </div>
+
+            <div class="bs-component">
+              <table class="table table-hover">
+                <thead>
+                  <tr>
+                    
+                    <th scope="col">Thread</th>
+                    <th scope="col">Message</th>
+                    <th scope="col">Sentiment Score</th>
+                    <th scope="col">Sentiment Magnitude</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for sentiment in sentiments %} 
+
+                  <tr class="table-light">
+                    
+                    <td>
+                      {% if sentiment.message.thread_ts == sentiment.message.ts %}
+                     <a href="/nlp/threads/{{sentiment.message.thread_ts}}?channel_id={{sentiment.message.channel_id}}">  {{sentiment.message.thread_ts}}</a>
+                     {% else  %}  
+                     {{sentiment.message.ts}}
+                    {% endif %}
+                    </td>
+                    <td>{{sentiment.message.text}}</td>
+                    <td>{{sentiment.score}}</td>
+                    <td>{{sentiment.magnitude}}</td>
+                  </tr>
+                  {% endfor %}
+                  
+                  </tbody>
+              </table> 
+            </div>
+          </div>
+        </div>
+      </div>
+   <div class="bs-docs-section">
+      <div class="col-lg-1">
+            <div class="bs-component">
+              <div>
+                <ul class="pagination">
+                  <li class="page-item disabled">
+                    <a class="page-link" href="#">&laquo;</a>
+                  </li>
+                  <li class="page-item active">
+
+                    {% if nextCursor == None %}
+                      <a class="page-link" href="/nlp/results/{{user_id}}?channel_id={{channel_id}}&page=">First</a>
+                    {% else %}  
+                    <a class="page-link" href="/nlp/results/{{user_id}}?channel_id={{channel_id}}&page={{nextCursor}}">Next</a>
+                    {% endif %}
+                  </li>
+                  <li class="page-item">
+                    <a class="page-link" href="#">&raquo;</a>
+                  </li>
+                </ul>
+              </div>
+      </div>
+    </div>
+{% else %}
+    <p>No Sentiments are available.</p>
+{% endif %}
+
+{% endblock %}
+
+
+
+
