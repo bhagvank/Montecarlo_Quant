@@ -2,9 +2,9 @@
 <!DOCTYPE html>
 <head>
 <link rel="stylesheet" href="{% static 'nlp/bootstrap.css' %}">
-<link rel="stylesheet" href="{% static 'nlp/custom.min.css' %}"> 
+<link rel="stylesheet" href="{% static 'nlp/custom.min.css' %}">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>{% block title %}Slack NLP{% endblock %}</title>
+<title>{% block title %}Monte Carlo Quant{% endblock %}</title>
 
 </head>
 
@@ -17,22 +17,22 @@
       <div class="page-header" id="banner">
         <div class="row">
           <div class="col-lg-8 col-md-7 col-sm-6">
-            <h1>OpenSource AI</h1>
-            <p class="lead"> NLP for Slack</p>
+            <h1>Monte Carlo</h1>
+            <p class="lead"> Monte Carlo Quant</p>
           </div>
           <div class="col-lg-4 col-md-5 col-sm-6">
             <div class="sponsor">
-              <img src="{% static 'nlp/images/logo.jpg' %}" width="150" height="150" class="center" align="middle">    
+              <img src="{% static 'nlp/images/logo.png' %}" width="150" height="150" class="center" align="middle">
 
             </div>
           </div>
         </div>
-      </div>  
-    
-  <div class="bs-docs-section clearfix">  
+      </div>
+
+  <div class="bs-docs-section clearfix">
      <div class="bs-component">
               <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-                <a class="navbar-brand" href="#">SlackNLP</a>
+                <a class="navbar-brand" href="#">Monte Carlo Quant</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
                   <span class="navbar-toggler-icon"></span>
                 </button>
@@ -82,11 +82,7 @@
                     <label for="confirmPassword">Confirm Password</label>
                     <input type="confirm_password" class="form-control" id="confirmPassword" name="confirmPassword" aria-describedby="confirmPasswordHelp" placeholder="Password">
                     <small id="confirmPasswordHelp" class="form-text text-muted">{{ error_confirm_password }}</small>
-                  </div>
-                   <div class="form-group">
-                    <label for="slacktoken">Slack API Token</label>
-                    <input type="slack_token" class="form-control" id="slacktoken" name="slacktoken" aria-describedby="slackTokenHelp" placeholder="Enter Slack Token">
-                    <small id="slackTokenHelp" class="form-text text-muted">{{ error_slack_token }}</small>
+
                   </div>
                   <button type="submit" class="btn btn-primary">Sign Up</button>
               </fieldset>
@@ -94,9 +90,9 @@
            </div>
          </div>
        </div>
-</div>       
-                  
+</div>
+
  {% endblock %}
- </div>  
+ </div>
  </body>
- </html>               
+ </html>
