@@ -25,7 +25,7 @@ def login(request):
     Returns
     -----------
      HttpResponse
-        content is the result of render method     
+        content is the result of render method
     """
     #slack = SlackUtil()
     #channels = slack.listChannels()
@@ -47,20 +47,20 @@ def logout(request):
     Returns
     -----------
      HttpResponse
-        content is the result of render method     
+        content is the result of render method
     """
     #slack = SlackUtil()
     #channels = slack.listChannels()
     #printf("channels", channels)
     # messages = listMessages("CBR05AS5N")
     try:
-       del request.session["slack_token"]
+    #   del request.session["slack_token"]
     except KeyError:
-       pass   
+       pass
     template_name = 'nlp/login.html'
     #context = {'channels': channels}
     # context_object_name = 'channels'
-    return render(request, template_name)    
+    return render(request, template_name)
 
 def authenticate(request):
     """
@@ -73,7 +73,7 @@ def authenticate(request):
     Returns
     -----------
      HttpResponse
-        content is the result of render method     
+        content is the result of render method
     """
     #slack = SlackUtil()
     #channels = slack.listChannels()
@@ -82,8 +82,8 @@ def authenticate(request):
     username = request.POST['useremail']
     password = request.POST['password']
 
-    
- 
+
+
     logger.info("authenticate username "+username )
     #+ "password "+ password.encode('base64')
 
@@ -95,21 +95,21 @@ def authenticate(request):
        error_username = "Invalid username"
        context = {'error_useremail': error_username,
                 'error_password': error_password}
-       return render(request, template_name,context)   
+       return render(request, template_name,context)
     #print(user)
     if user:
        check, error_username, error_password = user.authenticate(username, password)
        print(check,error_username,error_password)
        if check:
-          request.session["slack_token"] = user.getSlackToken()
+         # request.session["slack_token"] = user.getSlackToken()
           template_name = 'nlp/main.html'
           logger.info("authenticated username "+username)
           # + "password "+ password.encode('base64'))
        else :
-         print("setting template as login") 
+         print("setting template as login")
          template_name = 'nlp/login.html'
          logger.info("authenticate failure username "+username )
-         #+ "password "+ password.encode('base64'))   
+         #+ "password "+ password.encode('base64'))
     else :
         print("setting template as login")
         template_name = 'nlp/login.html'
@@ -119,7 +119,7 @@ def authenticate(request):
     context = {'error_useremail': error_username,
                 'error_password': error_password}
     # context_object_name = 'channels'
-    return render(request, template_name,context)    
+    return render(request, template_name,context)
 
 
 def main(request):
@@ -134,7 +134,7 @@ def main(request):
     Returns
     -----------
      HttpResponse
-        content is the result of render method     
+        content is the result of render method
     """
     #slack = SlackUtil()
     #channels = slack.listChannels()
@@ -143,7 +143,7 @@ def main(request):
     template_name = 'nlp/main.html'
     #context = {'channels': channels}
     # context_object_name = 'channels'
-    return render(request, template_name)    
+    return render(request, template_name)
 
 def signup(request):
     """
@@ -156,13 +156,13 @@ def signup(request):
     Returns
     -----------
      HttpResponse
-        content is the result of render method     
+        content is the result of render method
     """
 
     template_name = 'nlp/signup.html'
     #context = {'channels': channels}
     # context_object_name = 'channels'
-    return render(request, template_name)    
+    return render(request, template_name)
 
 def signin(request):
     """
@@ -175,7 +175,7 @@ def signin(request):
     Returns
     -----------
      HttpResponse
-        content is the result of render method     
+        content is the result of render method
     """
     #slack = SlackUtil()
     #channels = slack.listChannels()
@@ -198,10 +198,10 @@ def signin(request):
     error_username = _validate_username(username)
     error_password, error_confirm_password = _validate_password(password,confirmPassword)
     #error_slack_token = _validate_slack_token(slackToken)
-    
+
     if error_username == None and error_password == None and error_confirm_password == None:
        if password == confirmPassword:
-               #print("password is equal to confirmPassword") 
+               #print("password is equal to confirmPassword")
           user = SlackUser(username=username,password=password)
           user.save()
 
@@ -211,12 +211,12 @@ def signin(request):
           template_name = 'nlp/signup.html'
     else :
             #error_password = "password is not valid"
-            #error_confirm_password = "confirm_password is not valid" 
-            template_name = 'nlp/signup.html'     
-      
+            #error_confirm_password = "confirm_password is not valid"
+            template_name = 'nlp/signup.html'
+
     context = {'error_confirm_password': error_confirm_password,
                 'error_useremail': error_username,
-                'error_password': error_password 
+                'error_password': error_password
                 }
     # context_object_name = 'channels'
     return render(request, template_name,context)
@@ -232,7 +232,7 @@ def search(request):
     Returns
     -----------
      HttpResponse
-        content is the result of render method     
+        content is the result of render method
     """
     #slack = SlackUtil()
     #channels = slack.listChannels()
@@ -253,12 +253,12 @@ def search(request):
        print("search text",search_text)
        error_search = _validate_search(search_text)
     else :
-       search_text =  query  
-   
-    
+       search_text =  query
+
+
     messages = []
 
-    
+
     page_count = 0
 
     if error_search == None:
@@ -283,9 +283,9 @@ def search(request):
 
     else :
             #error_password = "password is not valid"
-            #error_confirm_password = "confirm_password is not valid" 
-            template_name = 'nlp/search.html'     
-      
+            #error_confirm_password = "confirm_password is not valid"
+            template_name = 'nlp/search.html'
+
     context = { 'error_search': error_search,
                 'query': search_text,
                 'messages' : messages,
@@ -300,7 +300,7 @@ def search(request):
                 'entitysentiments': messageSentiments
                 }
     # context_object_name = 'channels'
-    return render(request, template_name,context)     
+    return render(request, template_name,context)
 
 def index(request):
     """
@@ -314,13 +314,13 @@ def index(request):
     Returns
     -----------
      HttpResponse
-        content is the result of render method     
+        content is the result of render method
     """
     #print("index")
-    
+
     page,count = _parsePage(request)
 
-    
+
 
     print("page", page)
 
@@ -348,14 +348,14 @@ def detail(request, channel_id):
          Returns
           -----------
          HttpResponse
-        content is the result of render method  
+        content is the result of render method
 
-       """    
+       """
 
        #return HttpResponse("You're looking at question %s." % channel_id)
        page,count = _parsePage(request)
 
-       
+
      #  slack_token = request.session["slack_token"]
       # slack = SlackUtil(slack_token)
        #messages = slack.listMessages(channel_id)
@@ -386,12 +386,12 @@ def results(request, user_id):
     Returns
     -----------
      HttpResponse
-        content is the result of render method     
+        content is the result of render method
     """
     full_path = request.get_full_path()
     split_path = full_path.split("&")
 
-    
+
 
     page = None
 
@@ -410,7 +410,7 @@ def results(request, user_id):
        channel_id = previous_path[-1]
 
     else:
-    
+
        split_path = full_path.split("=")
        channel_id = split_path[-1]
 
@@ -426,7 +426,7 @@ def results(request, user_id):
     channel_name = slack.getChannelById(channel_id)
     nlp = NLPUtil()
 
-    
+
 
     sentiments = nlp.analyseContentSentiment(messages)
     #print("in results",sentiments)
@@ -451,14 +451,14 @@ def threads(request, thread_id):
     Returns
     -----------
      HttpResponse
-        content is the result of render method     
-    """    
+        content is the result of render method
+    """
 
 
     full_path = request.get_full_path()
     split_path = full_path.split("&")
 
-    
+
 
     page = None
 
@@ -477,7 +477,7 @@ def threads(request, thread_id):
        channel_id = previous_path[-1]
 
     else:
-    
+
        split_path = full_path.split("=")
        channel_id = split_path[-1]
 
@@ -487,13 +487,13 @@ def threads(request, thread_id):
     #slack_token = request.session["slack_token"]
     #slack = SlackUtil(slack_token)
     messages,nextCursor = slack.getRepliesByThreadIdPage(channel_id,thread_id,page,count)
-    
+
     #threadMessages = {}
     #for message in messages:
     #    threadMessages[message["ts"]]= message
 
     nlp = NLPUtil()
-    
+
     #print("in threads userspecific",threadMessages)
     sentiments = nlp.analyseContentSentiment(messages)
 
@@ -505,8 +505,8 @@ def threads(request, thread_id):
                 'channel_id': channel_id,
                 'nextCursor': nextCursor
                }
-    template_name = 'nlp/threads.html' 
-              
+    template_name = 'nlp/threads.html'
+
     return render(request, template_name, context)
 
 
@@ -559,22 +559,22 @@ def _parsePageQuery(request):
           page = pagePath[-1]
     count = 10
 
-    return page,count,query   
+    return page,count,query
 def _validate_username(username):
-    error_username = None    
+    error_username = None
     if username == None:
        #print("error in username")
        error_username = "user email is blank"
-       #template_name = 'nlp/signup.html' 
+       #template_name = 'nlp/signup.html'
     if "@" not in username or "." not in username :
-       error_username = "user email is not valid" 
-         #template_name = 'nlp/signup.html'       
+       error_username = "user email is not valid"
+         #template_name = 'nlp/signup.html'
     return error_username
 
 def _validate_search(search):
-    error_search = None    
+    error_search = None
     if search == None or search == "":
-       error_search = "search query is blank"      
+       error_search = "search query is blank"
     return error_search
 
 
@@ -591,13 +591,5 @@ def _validate_password(password,confirm_password):
           error_confirm_password = None
        else :
           error_password = "password and confirm_password do not match"
-          error_confirm_password = "password and confirm_password do not match"   
-    return error_password, error_confirm_password      
-
-
-   
-
-
-
-
-
+          error_confirm_password = "password and confirm_password do not match"
+    return error_password, error_confirm_password
