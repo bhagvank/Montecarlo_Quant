@@ -53,10 +53,10 @@ def logout(request):
     #channels = slack.listChannels()
     #printf("channels", channels)
     # messages = listMessages("CBR05AS5N")
-    try:
+    #try:
     #   del request.session["slack_token"]
-    except KeyError:
-       pass
+    #except KeyError:
+     #  pass
     template_name = 'nlp/login.html'
     #context = {'channels': channels}
     # context_object_name = 'channels'
