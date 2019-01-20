@@ -1,4 +1,4 @@
-{% extends "nlp/base.html" %}
+{% extends "montecarlo/base.html" %}
 {% block title %}Messages{% endblock %}
 
 
@@ -20,24 +20,24 @@
                   <tr>
                     <th scope="col">Text</th>
                     <th scope="col">User</th>
-                    
+
                   </tr>
                 </thead>
                 <tbody>
-                  {% for message in messages %}  
+                  {% for message in messages %}
 
                   <tr class="table-light">
                     <th scope="row">{{ message.text }}</th>
                     {% if message.profile %}
-                       <td><a href="/nlp/results/{{message.user}}?channel_id={{channel_id}}">{{ message.profile }}</a></td>
+                       <td><a href="/montecarlo/results/{{message.user}}?channel_id={{channel_id}}">{{ message.profile }}</a></td>
                     {% else %}
-                       <td><a href="/nlp/results/{{message.user}}?channel_id={{channel_id}}/">{{ message.user }}</a></td>
-                    {% endif %}   
+                       <td><a href="/montecarlo/results/{{message.user}}?channel_id={{channel_id}}/">{{ message.user }}</a></td>
+                    {% endif %}
                   </tr>
                   {% endfor %}
-                  
+
                   </tbody>
-              </table> 
+              </table>
             </div><!-- /example -->
           </div>
         </div>
@@ -52,10 +52,10 @@
                   </li>
                   <li class="page-item active">
                     {% if nextCursor == None %}
-                      <a class="page-link" href="/nlp/channel/{{channel_id}}/?page=">First</a>
+                      <a class="page-link" href="/montecarlo/channel/{{channel_id}}/?page=">First</a>
                     {% else %}
 
-                    <a class="page-link" href="/nlp/channel/{{channel_id}}/?page={{nextCursor}}">Next</a>
+                    <a class="page-link" href="/montecarlo/channel/{{channel_id}}/?page={{nextCursor}}">Next</a>
                     {% endif %}
 
                   </li>
@@ -65,10 +65,9 @@
                 </ul>
               </div>
       </div>
-    </div>  
-    
+    </div>
+
 {% else %}
     <p>No messages are available.</p>
 {% endif %}
 {% endblock %}
-

@@ -1,4 +1,4 @@
-{% extends "nlp/base.html" %}
+{% extends "montecarlo/base.html" %}
 {% load static %}
 {% block title %}Home{% endblock %}
 
@@ -13,7 +13,7 @@
           </div>
           <div class="col-lg-4 col-md-5 col-sm-6">
             <div class="sponsor">
-              <img src="{% static 'nlp/images/logo.png' %}" width="150" height="150" class="center" align="middle">
+              <img src="{% static 'montecarlo/images/logo.png' %}" width="150" height="150" class="center" align="middle">
 
             </div>
           </div>
@@ -31,13 +31,13 @@
                 <div class="collapse navbar-collapse" id="navbarColor01">
                   <ul class="navbar-nav mr-auto">
                     <li class="nav-item active">
-                      <a class="nav-link" href="/nlp/index">Channels <span class="sr-only">(current)</span></a>
+                      <a class="nav-link" href="/montecarlo/index">Channels <span class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link" href="/nlp">Sign Out</a>
+                      <a class="nav-link" href="/montecarlo">Sign Out</a>
                     </li>
                   </ul>
-                  <form class="form-inline my-2 my-lg-0" action="/nlp/search/" method="post">
+                  <form class="form-inline my-2 my-lg-0" action="/montecarlo/search/" method="post">
                     {% csrf_token %}
                     <input class="form-control mr-sm-2" type="text" placeholder="Search" name="Search" id="Search">
                     <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>

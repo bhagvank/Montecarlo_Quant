@@ -1,35 +1,42 @@
-{% extends "nlp/base.html" %}
-{% block title %}Channels{% endblock %}
+{% extends "montecarlo/base.html" %}
+{% block title %}Thread - Replies{% endblock %}
 
 
 {% block content %}
- 
-{% if channels %}
 
- 
-
+{% if sentiments %}
 <div class="bs-docs-section">
+
         <div class="row">
           <div class="col-lg-12">
             <div class="page-header">
-              <h1 id="tables">Channels</h1>
+              <h2 id="tables">{{channel}} -Thread Id: {{thread}}</h2>
             </div>
+
             <div class="bs-component">
               <table class="table table-hover">
                 <thead>
                   <tr>
-                    <th scope="col">Channel</th>
+                    <th scope="col">User</th>
+                    <th scope="col">Message</th>
+                    <th scope="col">Sentiment Score</th>
+                    <th scope="col">Sentiment Magnitude</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {% for channel in channels %}  
+                  {% for sentiment in sentiments %}
+
                   <tr class="table-light">
-                    <td><a href="/nlp/channel/{{channel.id}}/">{{ channel.name }}</a></td>
+                    <td>{{sentiment.message.profile}}</td>
+                    <td>{{sentiment.message.text}}</td>
+                    <td>{{sentiment.score}}</td>
+                    <td>{{sentiment.magnitude}}</td>
                   </tr>
                   {% endfor %}
+
                   </tbody>
-              </table> 
-            </div>
+              </table>
+            </div><!-- /example -->
           </div>
         </div>
       </div>
@@ -43,11 +50,9 @@
                   </li>
                   <li class="page-item active">
                     {% if nextCursor == None %}
-                      <a class="page-link" href="/nlp/index?page=">First</a>
-                    {% elif not nextCursor %}  
-                      <a class="page-link" href="/nlp/index?page=">First</a>
-                    {% else %}  
-                      <a class="page-link" href="/nlp/index?page={{nextCursor}}">Next</a>
+                      <a class="page-link" href="/montecarlo/threads/{{thread}}?channel_id={{channel_id}}&page=">First</a>
+                    {% else %}
+                    <a class="page-link" href="/montecarlo/threads/{{thread}}?channel_id={{channel_id}}&page={{nextCursor}}">Next</a>
                     {% endif %}
                   </li>
                   <li class="page-item">
@@ -56,11 +61,9 @@
                 </ul>
               </div>
       </div>
-    </div> 
+    </div>
 {% else %}
-    <p>No channels are available.</p>
+    <p>No Sentiments are available.</p>
 {% endif %}
 
 {% endblock %}
-
-

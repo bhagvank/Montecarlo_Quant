@@ -1,14 +1,15 @@
 {% load staticfiles %}
 <!DOCTYPE html>
 <head>
-<link rel="stylesheet" href="{% static 'nlp/bootstrap.css' %}">
-<link rel="stylesheet" href="{% static 'nlp/custom.min.css' %}">
+<link rel="stylesheet" href="{% static 'montecarlo/bootstrap.css' %}">
+<link rel="stylesheet" href="{% static 'montecarlo/custom.min.css' %}">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>{% block title %}Monte Carlo Quant{% endblock %}</title>
 
 </head>
 
 <body>
+
 
 
 {% block header %}
@@ -22,7 +23,7 @@
           </div>
           <div class="col-lg-4 col-md-5 col-sm-6">
             <div class="sponsor">
-              <img src="{% static 'nlp/images/logo.png' %}" width="150" height="150" class="center" align="middle">
+              <img src="{% static 'montecarlo/images/logo.png' %}" width="150" height="150" class="center" align="middle">
 
             </div>
           </div>
@@ -36,18 +37,19 @@
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
                   <span class="navbar-toggler-icon"></span>
                 </button>
-
-                 <div class="collapse navbar-collapse" id="navbarColor01">
+                <div class="collapse navbar-collapse" id="navbarColor01">
                   <ul class="navbar-nav mr-auto">
                     <li class="nav-item active">
-                      <a class="nav-link" href="/nlp/">Home <span class="sr-only">(current)</span></a>
+                      <a class="nav-link" href="/montecarlo/signup">SignUp <span class="sr-only">(current)</span></a>
                     </li>
                   </ul>
                 </div>
               </nav>
 
+
     </div>
   </div>
+
 
 {% endblock %}
 
@@ -57,7 +59,7 @@
         <div class="row">
           <div class="col-lg-12">
             <div class="page-header">
-              <h1 id="forms">Sign Up</h1>
+              <h1 id="forms">Login</h1>
             </div>
           </div>
         </div>
@@ -65,26 +67,28 @@
         <div class="row">
           <div class="col-lg-6">
             <div class="bs-component">
-              <form action="/nlp/signin/" method="POST">
+              <form action="/montecarlo/authenticate/" method="post">
                 {% csrf_token %}
                 <fieldset>
                   <div class="form-group">
                     <label for="useremail">Email address</label>
-                    <input type="email" class="form-control" id="useremail" name="useremail"aria-describedby="emailHelp" placeholder="Enter email">
-                    <small id="emailHelp" class="form-text text-muted">{{ error_useremail }}</small>
+                    <input type="email" class="form-control" id="useremail" name="useremail" aria-describedby="emailHelp" placeholder="Enter email">
+                    {%  if error_useremail == None  %}
+                     <small id="emailHelp" class="form-text text-muted">  </small>
+                    {% else %}
+                    <small id="emailHelp" class="form-text text-muted"> {{ error_useremail }} </small>
+                    {% endif %}
                   </div>
                   <div class="form-group">
                     <label for="password">Password</label>
-                    <input type="password" class="form-control" id="password" name="password"  aria-describedby="passwordHelp" placeholder="Password">
+                    <input type="password" class="form-control" id="password" name="password" aria-describedby="emailHelp" placeholder="Password">
+                    {% if error_password == None %}
+                     <small id="passwordHelp" class="form-text text-muted"></small>
+                    {% else %}
                     <small id="passwordHelp" class="form-text text-muted">{{ error_password }}</small>
+                    {% endif %}
                   </div>
-                  <div class="form-group">
-                    <label for="confirmPassword">Confirm Password</label>
-                    <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" aria-describedby="confirmPasswordHelp" placeholder="Password">
-                    <small id="confirmPasswordHelp" class="form-text text-muted">{{ error_confirm_password }}</small>
-
-                  </div>
-                  <button type="submit" class="btn btn-primary">Sign Up</button>
+                  <button type="submit" class="btn btn-primary">Submit</button>
               </fieldset>
             </form>
            </div>
@@ -93,6 +97,6 @@
 </div>
 
  {% endblock %}
- </div>
+</div>
  </body>
  </html>

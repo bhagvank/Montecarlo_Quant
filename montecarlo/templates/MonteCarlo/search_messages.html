@@ -1,18 +1,12 @@
-{% extends "nlp/base.html" %}
-{% load mathfilters %}
-{% block title %}Messages{% endblock %}
+  {% load mathfilters %}
 
-
-{% block content %}
-
-{% if messages %}
-
-<div class="bs-docs-section">
+  {% if messages %}
+                  <div class="bs-docs-section">
 
         <div class="row">
           <div class="col-lg-12">
             <div class="page-header">
-              <h1 id="tables">Search '{{ query}}' - Messages</h1>
+              <h2 id="tables">Search '{{ query}}' - Messages</h2>
             </div>
 
             <div class="bs-component">
@@ -22,20 +16,20 @@
                     <th scope="col">Text</th>
                     <th scope="col">User</th>
                     <th scope="col">Thread</th>
-                    
+
                   </tr>
                 </thead>
                 <tbody>
-                  {% for message in messages %}  
+                  {% for message in messages %}
 
                   <tr class="table-light">
                     <td scope="row">{{ message.text }}</td>
-                    <td>{{ message.username }}</td> 
-                    <td>{{ message.ts }}</td> 
+                    <td>{{ message.username }}</td>
+                    <td>{{ message.ts }}</td>
                   </tr>
                   {% endfor %}
                   </tbody>
-              </table> 
+              </table>
             </div><!-- /example -->
           </div>
         </div>
@@ -48,20 +42,20 @@
                   {% if page_num > 1 %}
                   <li class="page-item">
 
-                  {% else %}  
-                  <li class="page-item disabled">  
-                  {% endif %}  
-                    <a class="page-link" href="/nlp/search/?page={{page_num|sub:1}}&search={{query}}">Previous</a>
+                  {% else %}
+                  <li class="page-item disabled">
+                  {% endif %}
+                    <a class="page-link" href="/montecarlo/search/?page={{page_num|sub:1}}&search={{query}}">Previous</a>
                   </li>
-                  
+
                   {% for i in loop_count %}
                   {% if i == page_num %}
                   <li class="page-item active">
-                      <a class="page-link" href="/nlp/search/?page={{i}}&search={{query}}">{{i}}</a>
+                      <a class="page-link" href="/montecarlo/search/?page={{i}}&search={{query}}">{{i}}</a>
                   </li>
                   {% else %}
                   <li class="page-item">
-                      <a class="page-link" href="/nlp/search/?page={{i}}&search={{query}}">{{i}}</a>
+                      <a class="page-link" href="/montecarlo/search/?page={{i}}&search={{query}}">{{i}}</a>
                   </li>
 
                   {% endif %}
@@ -70,19 +64,18 @@
                     <li class="page-item">
                   {% else %}
                     <li class="page-item disabled">
-                  {% endif %}  
-                    <a class="page-link" href="/nlp/search/?page={{page_num|add:1}}&search={{query}}">Next</a>
+                  {% endif %}
+                    <a class="page-link" href="/montecarlo/search/?page={{page_num|add:1}}&search={{query}}">Next</a>
                   </li>
-                  
+
                 </ul>
               </div>
       </div>
-    </div>  
-    
-{% else %}
+    </div>
+
+    </div>
+    {% else %}
     <br>
     <br>
     <p>Search Query is Blank. Fill the search Field and click on search</p>
 {% endif %}
-{% endblock %}
-
