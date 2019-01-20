@@ -41,7 +41,7 @@ SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 # Application definition
 
 INSTALLED_APPS = [
-    'nlp.apps.NLPConfig',
+    'montecarlo.apps.MonteCarloConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -66,7 +66,7 @@ ROOT_URLCONF = 'mysite.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')], 
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -92,7 +92,7 @@ DATABASES = {
         'HOST' : 'localhost',
         'NAME' : 'registration',
         'USER' : 'newuser',
-        'PASSWORD' : 'oneTwo$232432' 
+        'PASSWORD' : 'oneTwo$232432'
                }
             }
 
@@ -130,7 +130,7 @@ LOGGING = {
         'file': {
             'level': 'INFO',
             'class': 'logging.FileHandler',
-            'filename': 'slacknlp.log',
+            'filename': 'montecarlo.log',
         },
     },
     'loggers': {
@@ -139,7 +139,7 @@ LOGGING = {
             'level': 'ERROR',
             'propagate': True,
         },
-        'nlp_logger': {
+        'montecarlo_logger': {
             'handlers': ['file'],
             'level': 'INFO',
             'propagate': True,
@@ -166,6 +166,3 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/dev/howto/static-files/
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATIC_URL = '/static/'
-
-
-

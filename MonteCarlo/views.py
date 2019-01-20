@@ -11,7 +11,7 @@ from .models import SlackUser
 import os
 import logging
 import base64
-logger = logging.getLogger("nlp_logger")
+logger = logging.getLogger("montecarlo_logger")
 
 def login(request):
     """
@@ -31,7 +31,7 @@ def login(request):
     #channels = slack.listChannels()
     #printf("channels", channels)
     # messages = listMessages("CBR05AS5N")
-    template_name = 'nlp/login.html'
+    template_name = 'montecarlo/login.html'
     #context = {'channels': channels}
     # context_object_name = 'channels'
     return render(request, template_name)
@@ -57,7 +57,7 @@ def logout(request):
     #   del request.session["slack_token"]
     #except KeyError:
      #  pass
-    template_name = 'nlp/login.html'
+    template_name = 'montecarlo/login.html'
     #context = {'channels': channels}
     # context_object_name = 'channels'
     return render(request, template_name)
@@ -91,7 +91,7 @@ def authenticate(request):
     try:
        user = get_object_or_404(SlackUser, username=username)
     except:
-       template_name = 'nlp/login.html'
+       template_name = 'montecarlo/login.html'
        error_username = "Invalid username"
        context = {'error_useremail': error_username,
                 'error_password': error_password}
@@ -102,17 +102,17 @@ def authenticate(request):
        print(check,error_username,error_password)
        if check:
          # request.session["slack_token"] = user.getSlackToken()
-          template_name = 'nlp/main.html'
+          template_name = 'montecarlo/main.html'
           logger.info("authenticated username "+username)
           # + "password "+ password.encode('base64'))
        else :
          print("setting template as login")
-         template_name = 'nlp/login.html'
+         template_name = 'montecarlo/login.html'
          logger.info("authenticate failure username "+username )
          #+ "password "+ password.encode('base64'))
     else :
         print("setting template as login")
-        template_name = 'nlp/login.html'
+        template_name = 'montecarlo/login.html'
         error_username = "Invalid username"
         logger.info("validation failure username "+username )
         #+ "password "+ password.encode('base64'))
@@ -140,7 +140,7 @@ def main(request):
     #channels = slack.listChannels()
     #printf("channels", channels)
     # messages = listMessages("CBR05AS5N")
-    template_name = 'nlp/main.html'
+    template_name = 'montecarlo/main.html'
     #context = {'channels': channels}
     # context_object_name = 'channels'
     return render(request, template_name)
@@ -159,7 +159,7 @@ def signup(request):
         content is the result of render method
     """
 
-    template_name = 'nlp/signup.html'
+    template_name = 'montecarlo/signup.html'
     #context = {'channels': channels}
     # context_object_name = 'channels'
     return render(request, template_name)
@@ -193,7 +193,7 @@ def signin(request):
     error_username = None
     error_password = None
     #error_slack_token =  None
-    #template_name = 'nlp/signup.html'
+    #template_name = 'montecarlo/signup.html'
 
     error_username = _validate_username(username)
     error_password, error_confirm_password = _validate_password(password,confirmPassword)
@@ -205,14 +205,14 @@ def signin(request):
           user = SlackUser(username=username,password=password)
           user.save()
 
-          template_name = 'nlp/login.html'
+          template_name = 'montecarlo/login.html'
        else :
                #error_confirm_password = "password and confirm password do not match"
-          template_name = 'nlp/signup.html'
+          template_name = 'montecarlo/signup.html'
     else :
             #error_password = "password is not valid"
             #error_confirm_password = "confirm_password is not valid"
-            template_name = 'nlp/signup.html'
+            template_name = 'montecarlo/signup.html'
 
     context = {'error_confirm_password': error_confirm_password,
                 'error_useremail': error_username,
@@ -267,24 +267,24 @@ def search(request):
       #    slack = SlackUtil(slack_token)
           messages,page_count = slack.searchAll(search_text,page,count)
                #error_confirm_password = "password and confirm password do not match"
-          template_name = 'nlp/tabs.html'
-          nlp = NLPUtil()
+          template_name = 'montecarlo/tabs.html'
+          montecarlo = montecarloUtil()
           messagesDict = {}
 
           for message in messages :
               messagesDict[message['ts']] = message
 
           #message
-          sentiments = nlp.analyseContentSentiment(messagesDict)
-          messageEntities = nlp.analyseEntities(messagesDict)
+          sentiments = montecarlo.analyseContentSentiment(messagesDict)
+          messageEntities = montecarlo.analyseEntities(messagesDict)
           print("entities",messageEntities)
-          messageSentiments = nlp.analyseEntitySentiments(messagesDict)
+          messageSentiments = montecarlo.analyseEntitySentiments(messagesDict)
           print("entities",messageEntities)
 
     else :
             #error_password = "password is not valid"
             #error_confirm_password = "confirm_password is not valid"
-            template_name = 'nlp/search.html'
+            template_name = 'montecarlo/search.html'
 
     context = { 'error_search': error_search,
                 'query': search_text,
@@ -330,7 +330,7 @@ def index(request):
     channels,nextCursor = slack.listChannelsPage(page,count)
     #printf("channels", channels)
     # messages = listMessages("CBR05AS5N")
-    template_name = 'nlp/index.html'
+    template_name = 'montecarlo/index.html'
     context = {'channels': channels,
                 'nextCursor': nextCursor
                 }
@@ -367,7 +367,7 @@ def detail(request, channel_id):
            channelMessages.append(channelMessage)
        channel_name = slack.getChannelById(channel_id)
 
-       template_name = 'nlp/detail.html'
+       template_name = 'montecarlo/detail.html'
 
        context = {'messages': channelMessages,
                    'channel': channel_name,
@@ -418,17 +418,17 @@ def results(request, user_id):
     count = 10
 
 
-    template_name = 'nlp/results.html'
+    template_name = 'montecarlo/results.html'
     #slack_token = request.session["slack_token"]
     #slack = SlackUtil(slack_token)
     #messages= {}
     messages, nextCursor = slack.getMessagesByUserPage(channel_id,user_id,page,count)
     channel_name = slack.getChannelById(channel_id)
-    nlp = NLPUtil()
+    montecarlo = montecarloUtil()
 
 
 
-    sentiments = nlp.analyseContentSentiment(messages)
+    sentiments = montecarlo.analyseContentSentiment(messages)
     #print("in results",sentiments)
     user_name = slack.getUserById(user_id)
     context = {'sentiments': sentiments,
@@ -492,10 +492,10 @@ def threads(request, thread_id):
     #for message in messages:
     #    threadMessages[message["ts"]]= message
 
-    nlp = NLPUtil()
+    montecarlo = MonteCarloUtil()
 
     #print("in threads userspecific",threadMessages)
-    sentiments = nlp.analyseContentSentiment(messages)
+    sentiments = montecarlo.analyseContentSentiment(messages)
 
     channel = slack.getChannelById(channel_id)
     #print("in results",sentiments)
@@ -505,7 +505,7 @@ def threads(request, thread_id):
                 'channel_id': channel_id,
                 'nextCursor': nextCursor
                }
-    template_name = 'nlp/threads.html'
+    template_name = 'montecarlo/threads.html'
 
     return render(request, template_name, context)
 
@@ -565,10 +565,10 @@ def _validate_username(username):
     if username == None:
        #print("error in username")
        error_username = "user email is blank"
-       #template_name = 'nlp/signup.html'
+       #template_name = 'montecarlo/signup.html'
     if "@" not in username or "." not in username :
        error_username = "user email is not valid"
-         #template_name = 'nlp/signup.html'
+         #template_name = 'montecarlo/signup.html'
     return error_username
 
 def _validate_search(search):

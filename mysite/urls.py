@@ -24,7 +24,7 @@ from django.views.generic.base import TemplateView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('nlp/',include('nlp.urls')),
-    
+    path('montecarlo/',include('montecarlo.urls')),
+
 
 ]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
