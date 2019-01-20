@@ -202,7 +202,7 @@ def signin(request):
     if error_username == None and error_password == None and error_confirm_password == None:
        if password == confirmPassword:
                #print("password is equal to confirmPassword") 
-          #user = SlackUser(username=username,password=password,slacktoken=slackToken)
+          user = SlackUser(username=username,password=password)
           user.save()
 
           template_name = 'nlp/login.html'
