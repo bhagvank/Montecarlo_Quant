@@ -15,7 +15,7 @@ class SlackUser(models.Model):
     
     username = models.CharField(max_length=200)
     password = models.CharField(max_length=200)
-    slacktoken = "abc"
+   # slacktoken = "abc"
 
     def _str_(self):
       """
@@ -27,7 +27,7 @@ class SlackUser(models.Model):
       """
       return self.username
 
-    def getSlackToken(self):
+ #   def getSlackToken(self):
       """
        str method
        Returns
@@ -35,7 +35,7 @@ class SlackUser(models.Model):
        str
          username
       """
-      return self.slacktoken
+#      return self.slacktoken
 
     def authenticate(self,username,password):
         """

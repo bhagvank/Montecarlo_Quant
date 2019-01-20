@@ -190,7 +190,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/dev/howto/static-files/
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATIC_URL = '/static/'
-SLACKTOKEN= ""
+#SLACKTOKEN= ""
 GOOGLE_SERVICE_JSON="service.json"
 import dj_database_url
 

@@ -9,7 +9,7 @@ from nlp.slackutils import SlackUtil
 class nlputilsTestCase(TestCase):
 
     def setUp(self): 
-     self.slack_token = os.environ['SLACK_TOKEN']
+    # self.slack_token = os.environ['SLACK_TOKEN']
      
      
 
@@ -17,7 +17,7 @@ class nlputilsTestCase(TestCase):
     def test_analyse_sentiments(self):
      
      #credentials = service_account.Credentials.from_service_account_file(os.environ['GOOGLE_SERVICE'])
-     slackUtil =  SlackUtil(self.slack_token) 
+    # slackUtil =  SlackUtil(self.slack_token) 
 
      channels,nextCursor = slackUtil.listChannelsPage(None,10)
 
@@ -37,7 +37,7 @@ class nlputilsTestCase(TestCase):
     def test_analyse_entities(self):
      
      #credentials = service_account.Credentials.from_service_account_file(os.environ['GOOGLE_SERVICE'])
-     slackUtil =  SlackUtil(self.slack_token) 
+    # slackUtil =  SlackUtil(self.slack_token) 
 
      channels,nextCursor = slackUtil.listChannelsPage(None,10)
 
@@ -57,7 +57,7 @@ class nlputilsTestCase(TestCase):
     def test_analyse_entity_sentiments(self):
      
      #credentials = service_account.Credentials.from_service_account_file(os.environ['GOOGLE_SERVICE'])
-     slackUtil =  SlackUtil(self.slack_token) 
+#     slackUtil =  SlackUtil(self.slack_token) 
 
      channels,nextCursor = slackUtil.listChannelsPage(None,10)
 

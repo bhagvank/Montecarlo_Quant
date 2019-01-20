@@ -9,12 +9,12 @@ from nlp.slackutils import SlackUtil
 class slackutilsTestCase(TestCase):
 
     def setUp(self): 
-     self.slack_token = os.environ['SLACK_TOKEN']  
+     #self.slack_token = os.environ['SLACK_TOKEN']  
 
     def test_list_channels_page(self):
 
 
-     slackUtil =  SlackUtil(self.slack_token) 
+#     slackUtil =  SlackUtil(self.slack_token) 
 
      channels,nextCursor = slackUtil.listChannelsPage(None,10)
 
@@ -23,7 +23,7 @@ class slackutilsTestCase(TestCase):
     def test_list_channels(self):
 
 
-     slackUtil =  SlackUtil(self.slack_token) 
+ #    slackUtil =  SlackUtil(self.slack_token) 
 
      channels = slackUtil.listChannels()
   
@@ -32,7 +32,7 @@ class slackutilsTestCase(TestCase):
     def test_search_All(self):
 
 
-      slackUtil =  SlackUtil(self.slack_token) 
+  #    slackUtil =  SlackUtil(self.slack_token) 
 
       messages,count = slackUtil.searchAll("day",1,10)
 
@@ -41,7 +41,7 @@ class slackutilsTestCase(TestCase):
     def test_list_Messages_Page(self):
 
 
-      slackUtil =  SlackUtil(self.slack_token) 
+   #   slackUtil =  SlackUtil(self.slack_token) 
 
       channels,nextCursor = slackUtil.listChannelsPage(None,10)
 
@@ -59,9 +59,7 @@ class slackutilsTestCase(TestCase):
 
     def test_list_Messages(self):
 
-
-      slackUtil =  SlackUtil(self.slack_token) 
-
+    #  slackUtil =  SlackUtil(self.slack_token) 
       channels,nextCursor = slackUtil.listChannelsPage(None,10)
 
       channelId = None
