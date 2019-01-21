@@ -7,6 +7,9 @@ from django.views import generic
 from django.utils import timezone
 from django.template import loader
 from .models import SlackUser
+from time import time
+from math import exp, sqrt, log
+from random import gauss, seed
 
 import os
 import logging
@@ -577,6 +580,24 @@ def _validate_search(search):
        error_search = "search query is blank"
     return error_search
 
+def euro_option(request):
+    """
+    sign up page call
+    Parameters
+    ----------
+    request : HttpRequest
+         request object
+
+    Returns
+    -----------
+     HttpResponse
+        content is the result of render method
+    """
+
+    template_name = 'montecarlo/euro_option.html'
+    
+    return render(request, template_name)
+
 
 def _validate_password(password,confirm_password):
     error_password = None
@@ -593,3 +614,46 @@ def _validate_password(password,confirm_password):
           error_password = "password and confirm_password do not match"
           error_confirm_password = "password and confirm_password do not match"
     return error_password, error_confirm_password
+
+def euro_montecarlo(request):
+  seed(20000)
+  initial_time = time()
+
+
+  initial_value = request.POST["initial_value"]
+  Strike_Price =request.POST["strike_price"]
+ 
+  Maturity = request.POST["maturity"]
+  risk =request.POST["risk"]
+  
+  volatility = request.POST["volatility"]
+  
+  Time_Steps= request.POST["time_steps"]
+  num_paths = request.POST["num_paths"]
+  dt = Maturity / Time_Steps  
+
+ 
+
+
+  Sim = []
+  for i in range(num_paths):
+    Simpath = []
+    for t in range(Time_Steps + 1):
+        if t == 0:
+            Simpath.append(initial_value)
+        else:
+            z = gauss(0.0, 1.0)
+            Simt = Simpath[t - 1] * exp((risk - 0.5 * volatility ** 2) * dt
+                                  + volatility * sqrt(dt) * z)
+            Simpath.append(Simt)
+    Sim.append(Simpath)
+    
+
+  Option_Value = exp(-risk * Maturity) * sum([max(path[-1] - Strike_Price, 0) for path in Sim]) / num_paths
+
+  time_taken = time() - initial_time
+
+  context = {'option_value': Option_value,
+                'time_taken': time_taken}
+
+  return render(request, template_name,context) 
