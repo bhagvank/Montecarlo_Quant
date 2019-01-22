@@ -595,7 +595,7 @@ def euro_option(request):
     """
 
     template_name = 'montecarlo/euro_option.html'
-    
+
     return render(request, template_name)
 
 
@@ -618,21 +618,21 @@ def _validate_password(password,confirm_password):
 def euro_montecarlo(request):
   seed(20000)
   initial_time = time()
-
+  template_name='montecarlo/euro_montecarlo.html'
 
   initial_value = request.POST["initial_value"]
   Strike_Price =request.POST["strike_price"]
- 
+
   Maturity = request.POST["maturity"]
   risk =request.POST["risk"]
-  
+
   volatility = request.POST["volatility"]
-  
+
   Time_Steps= request.POST["time_steps"]
   num_paths = request.POST["num_paths"]
-  dt = Maturity / Time_Steps  
+  dt = Maturity / Time_Steps
 
- 
+
 
 
   Sim = []
@@ -647,7 +647,7 @@ def euro_montecarlo(request):
                                   + volatility * sqrt(dt) * z)
             Simpath.append(Simt)
     Sim.append(Simpath)
-    
+
 
   Option_Value = exp(-risk * Maturity) * sum([max(path[-1] - Strike_Price, 0) for path in Sim]) / num_paths
 
@@ -656,4 +656,4 @@ def euro_montecarlo(request):
   context = {'option_value': Option_value,
                 'time_taken': time_taken}
 
-  return render(request, template_name,context) 
+  return render(request, template_name,context)
