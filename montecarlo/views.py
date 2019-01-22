@@ -224,7 +224,7 @@ def signin(request):
     # context_object_name = 'channels'
     return render(request, template_name,context)
 
-def search(request):
+'''def search(request):
     """
     sign in - sign up processing
     Parameters
@@ -304,7 +304,7 @@ def search(request):
                 }
     # context_object_name = 'channels'
     return render(request, template_name,context)
-
+'''
 def index(request):
     """
     index page
@@ -340,7 +340,7 @@ def index(request):
     # context_object_name = 'channels'
     return render(request, template_name, context)
 
-def detail(request, channel_id):
+'''def detail(request, channel_id):
        """
           detail page
          Parameters
@@ -562,7 +562,7 @@ def _parsePageQuery(request):
           page = pagePath[-1]
     count = 10
 
-    return page,count,query
+    return page,count,query'''
 def _validate_username(username):
     error_username = None
     if username == None:
@@ -574,12 +574,12 @@ def _validate_username(username):
          #template_name = 'montecarlo/signup.html'
     return error_username
 
-def _validate_search(search):
+'''def _validate_search(search):
     error_search = None
     if search == None or search == "":
        error_search = "search query is blank"
     return error_search
-
+'''
 def euro_option(request):
     """
     sign up page call
