@@ -1,6 +1,6 @@
 from django.shortcuts import get_object_or_404, render
 
-# Create your views here.
+
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
 from django.views import generic
@@ -17,7 +17,7 @@ import base64
 logger = logging.getLogger("montecarlo_logger")
 
 def login(request):
-   
+
     template_name = 'montecarlo/login.html'
     return render(request, template_name)
 def logout(request):
@@ -32,7 +32,7 @@ def authenticate(request):
 
 
     logger.info("authenticate username "+username )
-  
+
 
     error_password = None
     try:
@@ -43,29 +43,29 @@ def authenticate(request):
        context = {'error_useremail': error_username,
                 'error_password': error_password}
        return render(request, template_name,context)
-    
+
     if user:
        check, error_username, error_password = user.authenticate(username, password)
        print(check,error_username,error_password)
        if check:
-        
+
           template_name = 'montecarlo/main.html'
           logger.info("authenticated username "+username)
-        
+
        else :
          print("setting template as login")
          template_name = 'montecarlo/login.html'
          logger.info("authenticate failure username "+username )
-         
+
     else :
         print("setting template as login")
         template_name = 'montecarlo/login.html'
         error_username = "Invalid username"
         logger.info("validation failure username "+username )
-       
+
     context = {'error_useremail': error_username,
                 'error_password': error_password}
-  
+
     return render(request, template_name,context)
 
 
@@ -84,11 +84,11 @@ def signin(request):
     confirmPassword = request.POST['confirmPassword']
     print("password, confirmPassword",password,confirmPassword)
 
- 
+
     error_confirm_password = None
     error_username = None
     error_password = None
- 
+
     error_username = _validate_username(username)
     error_password, error_confirm_password = _validate_password(password,confirmPassword)
 
@@ -111,7 +111,7 @@ def signin(request):
 
 
 def index(request):
-   
+
     page,count = _parsePage(request)
 
 
@@ -128,17 +128,15 @@ def index(request):
 def _validate_username(username):
     error_username = None
     if username == None:
-       #print("error in username")
        error_username = "user email is blank"
-       #template_name = 'montecarlo/signup.html'
+
     if "@" not in username or "." not in username :
        error_username = "user email is not valid"
-         #template_name = 'montecarlo/signup.html'
     return error_username
 
 
 def euro_option(request):
-   
+
 
     template_name = 'montecarlo/euro_option.html'
 
@@ -166,20 +164,18 @@ def euro_montecarlo(request):
   initial_time = time()
   template_name='montecarlo/euro_montecarlo.html'
 
-  initial_value = request.POST["initial_value"]
-  Strike_Price =request.POST["strike_price"]
+  initial_value = float(request.POST["initial_value"])
+  Strike_Price = float(request.POST["strike_price"])
 
-  Maturity = request.POST["maturity"]
-  risk =request.POST["risk"]
+  Maturity = float(request.POST["maturity"])
+  risk = float(request.POST["risk"])
 
-  volatility = request.POST["volatility"]
+  volatility = float(request.POST["volatility"])
 
-  Time_Steps= request.POST["time_steps"]
-  num_paths = request.POST["num_paths"]
+  Time_Steps= int(request.POST["time_steps"])
+  num_paths = int(request.POST["num_paths"])
+
   dt = Maturity / Time_Steps
-
-
-
 
   Sim = []
   for i in range(num_paths):
@@ -199,7 +195,7 @@ def euro_montecarlo(request):
 
   time_taken = time() - initial_time
 
-  context = {'option_value': Option_value,
+  context = {'option_value': Option_Value,
                 'time_taken': time_taken}
 
   return render(request, template_name,context)
