@@ -620,16 +620,17 @@ def euro_montecarlo(request):
   initial_time = time()
   template_name='montecarlo/euro_montecarlo.html'
 
-  initial_value = request.POST["initial_value"]
-  Strike_Price =request.POST["strike_price"]
+  initial_value = float(request.POST["initial_value"])
+  Strike_Price = float(request.POST["strike_price"])
 
-  Maturity = request.POST["maturity"]
-  risk =request.POST["risk"]
+  Maturity = float(request.POST["maturity"])
+  risk = float(request.POST["risk"])
 
-  volatility = request.POST["volatility"]
+  volatility = float(request.POST["volatility"])
 
-  Time_Steps= request.POST["time_steps"]
-  num_paths = request.POST["num_paths"]
+  Time_Steps= int(request.POST["time_steps"])
+  num_paths = int(request.POST["num_paths"])
+  dt = Maturity / Time_Steps
   dt = Maturity / Time_Steps
 
 
@@ -653,7 +654,7 @@ def euro_montecarlo(request):
 
   time_taken = time() - initial_time
 
-  context = {'option_value': Option_value,
+  context = {'option_value': Option_Value,
                 'time_taken': time_taken}
 
   return render(request, template_name,context)
