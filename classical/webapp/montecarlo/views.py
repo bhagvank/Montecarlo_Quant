@@ -166,9 +166,22 @@ def euro_montecarlo(request):
 
   initial_value = float(request.POST["initial_value"])
   Strike_Price = float(request.POST["strike_price"])
+<<<<<<< HEAD
 
   Maturity = float(request.POST["maturity"])
   risk = float(request.POST["risk"])
+=======
+
+  Maturity = float(request.POST["maturity"])
+  risk = float(request.POST["risk"])
+
+  volatility = float(request.POST["volatility"])
+
+  Time_Steps= int(request.POST["time_steps"])
+  num_paths = int(request.POST["num_paths"])
+  dt = Maturity / Time_Steps
+  dt = Maturity / Time_Steps
+>>>>>>> 0470ed3c8a2fc2bdceded2bb817e3394a472b11e
 
   volatility = float(request.POST["volatility"])
 

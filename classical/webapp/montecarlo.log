@@ -15,9 +15,14 @@ authenticate username ojasjain2017@gmail.com
 authenticated username ojasjain2017@gmail.com
 authenticate username ojasjain2017@gmail.com
 authenticated username ojasjain2017@gmail.com
+<<<<<<< HEAD
 authenticate username ojasjain2017@gmail.com
 authenticate failure username ojasjain2017@gmail.com
 authenticate username ojasjain2017@gmail.com
 authenticated username ojasjain2017@gmail.com
 authenticate username ojasjain2017@gmail.com
 authenticated username ojasjain2017@gmail.com
+=======
+authenticate username bhagvanarch@gmail.com
+authenticated username bhagvanarch@gmail.com
+>>>>>>> 0470ed3c8a2fc2bdceded2bb817e3394a472b11e
