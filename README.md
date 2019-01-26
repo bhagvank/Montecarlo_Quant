@@ -9,7 +9,7 @@ Monte Carlo Quant is an open source project initiated by researchers at Quantica
 
 1.Options pricing
 
-2.return predictions.
+2.Return predictions.
 
 3.portfolio evaluation.
 
