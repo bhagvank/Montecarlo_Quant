@@ -1,0 +1,201 @@
+from django.shortcuts import get_object_or_404, render
+
+
+from django.http import HttpResponse, HttpResponseRedirect
+from django.urls import reverse
+from django.views import generic
+from django.utils import timezone
+from django.template import loader
+from .models import SlackUser
+from time import time
+from math import exp, sqrt, log
+from random import gauss, seed
+
+import os
+import logging
+import base64
+logger = logging.getLogger("montecarlo_logger")
+
+def login(request):
+
+    template_name = 'montecarlo/login.html'
+    return render(request, template_name)
+def logout(request):
+    template_name = 'montecarlo/login.html'
+    return render(request, template_name)
+
+def authenticate(request):
+    print("authenticating")
+    username = request.POST['useremail']
+    password = request.POST['password']
+
+
+
+    logger.info("authenticate username "+username )
+
+
+    error_password = None
+    try:
+       user = get_object_or_404(SlackUser, username=username)
+    except:
+       template_name = 'montecarlo/login.html'
+       error_username = "Invalid username"
+       context = {'error_useremail': error_username,
+                'error_password': error_password}
+       return render(request, template_name,context)
+
+    if user:
+       check, error_username, error_password = user.authenticate(username, password)
+       print(check,error_username,error_password)
+       if check:
+
+          template_name = 'montecarlo/main.html'
+          logger.info("authenticated username "+username)
+
+       else :
+         print("setting template as login")
+         template_name = 'montecarlo/login.html'
+         logger.info("authenticate failure username "+username )
+
+    else :
+        print("setting template as login")
+        template_name = 'montecarlo/login.html'
+        error_username = "Invalid username"
+        logger.info("validation failure username "+username )
+
+    context = {'error_useremail': error_username,
+                'error_password': error_password}
+
+    return render(request, template_name,context)
+
+
+def main(request):
+    template_name = 'montecarlo/main.html'
+    return render(request, template_name)
+
+def signup(request):
+
+    template_name = 'montecarlo/signup.html'
+    return render(request, template_name)
+
+def signin(request):
+    username = request.POST['useremail']
+    password = request.POST['password']
+    confirmPassword = request.POST['confirmPassword']
+    print("password, confirmPassword",password,confirmPassword)
+
+
+    error_confirm_password = None
+    error_username = None
+    error_password = None
+
+    error_username = _validate_username(username)
+    error_password, error_confirm_password = _validate_password(password,confirmPassword)
+
+    if error_username == None and error_password == None and error_confirm_password == None:
+       if password == confirmPassword:
+          user = SlackUser(username=username,password=password)
+          user.save()
+
+          template_name = 'montecarlo/login.html'
+       else :
+          template_name = 'montecarlo/signup.html'
+    else :
+            template_name = 'montecarlo/signup.html'
+
+    context = {'error_confirm_password': error_confirm_password,
+                'error_useremail': error_username,
+                'error_password': error_password
+                }
+    return render(request, template_name,context)
+
+
+def index(request):
+
+    page,count = _parsePage(request)
+
+
+
+    print("page", page)
+    channels,nextCursor = slack.listChannelsPage(page,count)
+    template_name = 'montecarlo/index.html'
+    context = {'channels': channels,
+                'nextCursor': nextCursor
+                }
+    return render(request, template_name, context)
+
+
+def _validate_username(username):
+    error_username = None
+    if username == None:
+       error_username = "user email is blank"
+
+    if "@" not in username or "." not in username :
+       error_username = "user email is not valid"
+    return error_username
+
+
+def euro_option(request):
+
+
+    template_name = 'montecarlo/euro_option.html'
+
+    return render(request, template_name)
+
+
+def _validate_password(password,confirm_password):
+    error_password = None
+    error_confirm_password = None
+    if password == None:
+       error_password = "password is blank"
+    if confirm_password == None:
+       error_confirm_password = "confirm password is blank"
+    if password != None and confirm_password != None:
+       if password == confirm_password:
+          error_password = None
+          error_confirm_password = None
+       else :
+          error_password = "password and confirm_password do not match"
+          error_confirm_password = "password and confirm_password do not match"
+    return error_password, error_confirm_password
+
+def euro_montecarlo(request):
+  seed(20000)
+  initial_time = time()
+  template_name='montecarlo/euro_montecarlo.html'
+
+  initial_value = float(request.POST["initial_value"])
+  Strike_Price = float(request.POST["strike_price"])
+
+  Maturity = float(request.POST["maturity"])
+  risk = float(request.POST["risk"])
+
+  volatility = float(request.POST["volatility"])
+
+  Time_Steps= int(request.POST["time_steps"])
+  num_paths = int(request.POST["num_paths"])
+
+  dt = Maturity / Time_Steps
+
+  Sim = []
+  for i in range(num_paths):
+    Simpath = []
+    for t in range(Time_Steps + 1):
+        if t == 0:
+            Simpath.append(initial_value)
+        else:
+            z = gauss(0.0, 1.0)
+            Simt = Simpath[t - 1] * exp((risk - 0.5 * volatility ** 2) * dt
+                                  + volatility * sqrt(dt) * z)
+            Simpath.append(Simt)
+    Sim.append(Simpath)
+
+
+  Option_Value = exp(-risk * Maturity) * sum([max(path[-1] - Strike_Price, 0) for path in Sim]) / num_paths
+
+  time_taken = time() - initial_time
+
+  context = {'option_value': Option_Value,
+                'time_taken': time_taken}
+
+  return render(request, template_name,context)
