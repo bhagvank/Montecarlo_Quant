@@ -90,8 +90,9 @@ pipenv install
 pipenv shell
 ```  
    
-5. run locally using settings
+5. run locally using settings (update the database username and password)
 ```
+python3 manage.py migrate --settings=mysite.run_settings
 python3 manage.py runserver --settings=mysite.run_settings
 
 ```
