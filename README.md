@@ -34,7 +34,7 @@ A practical implementation of some of these algorithms on a hypothetical quantum
 After the financial crisis of 2008-2009, it's essential for the government and banks to estimate the risk exposure of the financial institutions. Such risks follow the nomenclature XVA where X stands for the type of risk associated and VA for value adjustment.  Different MC simulations performed overnight assesses the risk under different scenarios. Reducing the time-consumption of these overnight calculations facilitates the institutions to take actions following the changing market conditions. 
 
 
-## Prerequisites
+## Prerequisites for classical python
 
 1. Ensure that  python3 is installed.
   * [Python3](https://www.python.org/downloads/)
@@ -64,3 +64,39 @@ python estimator.py
 exit
 ```
 
+# Instructions for setting up locally - classical/webapp
+1. Ensure that mysql is installed, python3 and django for polls app - mysite folder.
+
+  * [Python3](https://www.python.org/downloads/)
+
+  * [Django](https://docs.djangoproject.com/en/2.0/topics/install/#installing-official-release)
+
+  * [MySql](https://www.mysql.com/downloads/)
+  
+  
+2.git clone this repository
+```
+git clone https://github.com/bhagvank/Montecarlo_Quant.git
+
+```
+   
+3. Pipenv install : install the packages required
+```
+pipenv install
+```
+
+4. Pipenv shell : Run the virtual env 
+```
+pipenv shell
+```  
+   
+5. run locally using settings
+```
+python3 manage.py runserver --settings=mysite.run_settings
+
+```
+
+7. Exit the shell
+```
+exit
+```  
