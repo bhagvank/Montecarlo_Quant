@@ -97,7 +97,7 @@ python3 manage.py runserver --settings=mysite.run_settings
 
 ```
 
-7. Exit the shell
+6. Exit the shell
 ```
 exit
 ```  
