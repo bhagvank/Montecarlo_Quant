@@ -5,7 +5,7 @@ Monte Carlo Quant is an open source project initiated by researchers at Quantica
 
 ![alt text](https://github.com/bhagvank/arc/blob/master/monte_carlo_quant.png)
 
-# [MonteCarlo Demo](https://guarded-garden-28229.herokuapp.com/nlp/)
+# [MonteCarlo Demo](https://guarded-garden-28229.herokuapp.com/montecarlo/)
 
 # Use Cases
 
