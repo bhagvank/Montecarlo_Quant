@@ -12,7 +12,7 @@
             monteCarlo.calculatePI();
         }
 
-		public static void calculatePI(){
+		public static calculatePI(){
 			int i;                                                               
             int nThrows = 0;                                             
             int nSuccess = 0;                                            
