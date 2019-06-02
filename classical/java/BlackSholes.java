@@ -7,11 +7,26 @@ public class BlackSholes {
 
     }
 
-    // public double callPrice(double s, double x, double r, double sigma, double t) {
-    //     double d1 = (Math.log(s/x) + (r + sigma * sigma/2) * t) / (sigma * Math.sqrt(t));
-    //     double d2 = d1 - sigma * Math.sqrt(t);
-    //     return s * Gaussian.cdf(d1) - x * Math.exp(-r*t) * Gaussian.cdf(d2);
-    // }
+    public double cdf(double z) {
+        if (z < -8.0) return 0.0;
+        if (z >  8.0) return 1.0;
+        double sum = 0.0, term = z;
+        for (int i = 3; sum + term != sum; i += 2) {
+            sum  = sum + term;
+            term = term * z * z / i;
+        }
+        return 0.5 + sum * pdf(z);
+    }
+
+    public double pdf(double x) {
+        return Math.exp(-x*x / 2) / Math.sqrt(2 * Math.PI);
+    }
+
+    public double callPrice(double s, double x, double r, double sigma, double t) {
+        double d1 = (Math.log(s/x) + (r + sigma * sigma/2) * t) / (sigma * Math.sqrt(t));
+        double d2 = d1 - sigma * Math.sqrt(t);
+        return s * cdf(d1) - x * Math.exp(-r*t) * cdf(d2);
+    }
 
     public double call(double s, double x, double r, double sigma, double t) {
         Random StdRandom = new Random();
@@ -53,7 +68,7 @@ public class BlackSholes {
         double sigma = Double.parseDouble(args[3]);
         double t     = Double.parseDouble(args[4]);
         BlackSholes bs = new BlackSholes();
-        // System.out.println(bs.callPrice(s, x, r, sigma, t));
+        System.out.println(bs.callPrice(s, x, r, sigma, t));
         System.out.println(bs.call(s, x, r, sigma, t));
         System.out.println(bs.call2(s, x, r, sigma, t));
     }
