@@ -1,3 +1,12 @@
+import java.util.*;
+import java.io.*;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.DocumentBuilder;
+import org.w3c.dom.Document;
+import org.w3c.dom.NodeList;
+import org.w3c.dom.Node;
+import org.w3c.dom.Element;
+
 public class Gaussian {
 
     public Gaussian()
@@ -65,10 +74,39 @@ public class Gaussian {
         return inverseCDF(y);
     } 
 
-    public static void main(String[] args) {
-        double z     = Double.parseDouble(args[0]);
-        double mu    = Double.parseDouble(args[1]);
-        double sigma = Double.parseDouble(args[2]);
+    public static void main(String[] args) throws Exception 
+    {
+        double z     = 0.0;
+        double mu    = 0.0;
+        double sigma = 0.0;
+
+        File fXmlFile = new File("input.xml");
+        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder builder = factory.newDocumentBuilder();
+        Document document = builder.parse(fXmlFile);
+
+        document.getDocumentElement().normalize();
+
+        NodeList nodeList = document.getDocumentElement().getChildNodes();
+        for (int i = 0; i < nodeList.getLength(); i++) 
+        {         
+            Node node = nodeList.item(i);
+
+            if (node.getNodeType() == Node.ELEMENT_NODE)
+            {
+                if(node.getNodeName().equals("Gaussian"))
+                {
+                    Element elem = (Element) node;
+                     
+                    z = Double.parseDouble(elem.getElementsByTagName("z").item(0).getChildNodes().item(0).getNodeValue());
+                     
+                    mu = Double.parseDouble(elem.getElementsByTagName("mu").item(0).getChildNodes().item(0).getNodeValue());
+                     
+                    sigma = Double.parseDouble(elem.getElementsByTagName("sigma").item(0).getChildNodes().item(0).getNodeValue());                      
+                }
+            }
+        }
+
         Gaussian g = new Gaussian();
         System.out.println(g.cdf(z, mu, sigma));
         double y = g.cdf(z);

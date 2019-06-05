@@ -1,7 +1,11 @@
-
-import java.lang.*;
-import java.io.*;
 import java.util.*;
+import java.io.*;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.DocumentBuilder;
+import org.w3c.dom.Document;
+import org.w3c.dom.NodeList;
+import org.w3c.dom.Node;
+import org.w3c.dom.Element;
 
 public class DQMC {
 
@@ -10,13 +14,13 @@ public class DQMC {
 
   }
 
-  final static int lx = 13, ly = 15;
-  final static int L = lx*ly, N = L, nv = 3*N, nc = 200, ne = 500, bmax = 100;
-  final static double hm = 12.119232, rm = 2.9683, e0 = 10.956, u0 = 206875.0;
-  final static double g0 = 11.027235, a3 = 6.386763, a4 = 12.116816;
-  final static double a0 = 10.5717543, b0 =  2.07758779, v0 = 186924.404;
-  final static double c6 = 1.35186623, c8 = 0.41495143, c10 = 0.17151143;
-  final static double d = 1.438, rho = 0.024494, rho2D = 0.0637;
+  static int lx = 13, ly = 15;
+  static int L = lx*ly, N = L, nv = 3*N, nc = 200, ne = 500, bmax = 100;
+  static double hm = 12.119232, rm = 2.9683, e0 = 10.956, u0 = 206875.0;
+  static double g0 = 11.027235, a3 = 6.386763, a4 = 12.116816;
+  static double a0 = 10.5717543, b0 =  2.07758779, v0 = 186924.404;
+  static double c6 = 1.35186623, c8 = 0.41495143, c10 = 0.17151143;
+  static double d = 1.438, rho = 0.024494, rho2D = 0.0637;
   static int seed, iq, is, ic, ig, ia, ng, nf, ns, nr, np, dn, step;
   static double ax, dx, dy, dz, dr, norm, hideal;
   static double e, er, ek, ep, w, ws, ka, dt, st, ze, z0, r0, a, b, c;
@@ -48,7 +52,79 @@ public class DQMC {
   static double gr[] = new double[bmax];
   static int hist[] = new int[bmax];
 
-  public static void main(String argv[]) throws IOException {
+  public static void main(String argv[]) throws Exception 
+  {
+
+    File fXmlFile = new File("input.xml");
+    DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+    DocumentBuilder builder = factory.newDocumentBuilder();
+    Document document = builder.parse(fXmlFile);
+
+    document.getDocumentElement().normalize();
+
+    NodeList nodeList = document.getDocumentElement().getChildNodes();
+    for (int i = 0; i < nodeList.getLength(); i++) 
+    {         
+        Node node = nodeList.item(i);
+
+        if (node.getNodeType() == Node.ELEMENT_NODE)
+        {
+            if(node.getNodeName().equals("DQMC"))
+            {
+                Element elem = (Element) node;
+                 
+                lx = Integer.parseInt(elem.getElementsByTagName("lx").item(0).getChildNodes().item(0).getNodeValue());
+
+                ly = Integer.parseInt(elem.getElementsByTagName("ly").item(0).getChildNodes().item(0).getNodeValue());
+
+                L = Integer.parseInt(elem.getElementsByTagName("L").item(0).getChildNodes().item(0).getNodeValue());
+
+                N = Integer.parseInt(elem.getElementsByTagName("N").item(0).getChildNodes().item(0).getNodeValue());
+
+                nv = Integer.parseInt(elem.getElementsByTagName("nv").item(0).getChildNodes().item(0).getNodeValue());
+                     
+                nc = Integer.parseInt(elem.getElementsByTagName("nc").item(0).getChildNodes().item(0).getNodeValue());
+
+                ne = Integer.parseInt(elem.getElementsByTagName("ne").item(0).getChildNodes().item(0).getNodeValue());
+
+                bmax = Integer.parseInt(elem.getElementsByTagName("bmax").item(0).getChildNodes().item(0).getNodeValue());
+                     
+                hm = Double.parseDouble(elem.getElementsByTagName("hm").item(0).getChildNodes().item(0).getNodeValue());
+                     
+                rm = Double.parseDouble(elem.getElementsByTagName("rm").item(0).getChildNodes().item(0).getNodeValue());
+                     
+                e0 = Double.parseDouble(elem.getElementsByTagName("e0").item(0).getChildNodes().item(0).getNodeValue());
+
+                u0 = Double.parseDouble(elem.getElementsByTagName("u0").item(0).getChildNodes().item(0).getNodeValue());
+
+                g0 = Double.parseDouble(elem.getElementsByTagName("g0").item(0).getChildNodes().item(0).getNodeValue());
+
+                a3 = Double.parseDouble(elem.getElementsByTagName("a3").item(0).getChildNodes().item(0).getNodeValue());
+
+                a4 = Double.parseDouble(elem.getElementsByTagName("a4").item(0).getChildNodes().item(0).getNodeValue());
+
+                a3 = Double.parseDouble(elem.getElementsByTagName("a3").item(0).getChildNodes().item(0).getNodeValue());
+
+                a0 = Double.parseDouble(elem.getElementsByTagName("a0").item(0).getChildNodes().item(0).getNodeValue());
+
+                b0 = Double.parseDouble(elem.getElementsByTagName("b0").item(0).getChildNodes().item(0).getNodeValue());
+
+                v0 = Double.parseDouble(elem.getElementsByTagName("v0").item(0).getChildNodes().item(0).getNodeValue());  
+
+                c6 = Double.parseDouble(elem.getElementsByTagName("c6").item(0).getChildNodes().item(0).getNodeValue());
+
+                c8 = Double.parseDouble(elem.getElementsByTagName("c8").item(0).getChildNodes().item(0).getNodeValue());
+
+                c10 = Double.parseDouble(elem.getElementsByTagName("c10").item(0).getChildNodes().item(0).getNodeValue());
+
+                d = Double.parseDouble(elem.getElementsByTagName("d").item(0).getChildNodes().item(0).getNodeValue()); 
+
+                rho = Double.parseDouble(elem.getElementsByTagName("rho").item(0).getChildNodes().item(0).getNodeValue());
+
+                rho2D = Double.parseDouble(elem.getElementsByTagName("rho2D").item(0).getChildNodes().item(0).getNodeValue());                   
+            }
+        }
+    }
 
     DQMC dq = new DQMC();
     dq.initiate();

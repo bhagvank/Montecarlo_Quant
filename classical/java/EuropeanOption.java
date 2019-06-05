@@ -1,4 +1,12 @@
 import java.text.DecimalFormat;
+import java.util.*;
+import java.io.*;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.DocumentBuilder;
+import org.w3c.dom.Document;
+import org.w3c.dom.NodeList;
+import org.w3c.dom.Node;
+import org.w3c.dom.Element;
  
 public class EuropeanOption {
 
@@ -7,21 +15,64 @@ public class EuropeanOption {
 
     }
  
-    public static void main(String[] args) {
-        double stock_price = 85.0d; 
-        int strike_price = 90; 
-        double interest_rate = 0.08d; 
-        int numberOfSteps = 400; 
-        double timeTillExpiration = (double) 6/12; 
-        int numberOfComputations = 100000; 
-        double volatility = 0.2d; 
-        double totalPayoff = 0;
-        double averagePayoff = 0;
-        double compundRate = 0;
-        double O; 
+    public static void main(String[] args) throws Exception
+    {
+        double stock_price = 0.0; 
+        int strike_price = 0; 
+        double interest_rate = 0.0; 
+        int numberOfSteps = 0; 
+        double timeTillExpiration = 0.0; 
+        int numberOfComputations = 0; 
+        double volatility = 0.0; 
+        double totalPayoff = 0.0;
+        double averagePayoff = 0.0;
+        double compundRate = 0.0;
+        double O;
+
+        File fXmlFile = new File("input.xml");
+        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder builder = factory.newDocumentBuilder();
+        Document document = builder.parse(fXmlFile);
+
+        document.getDocumentElement().normalize();
+
+        NodeList nodeList = document.getDocumentElement().getChildNodes();
+        for (int i = 0; i < nodeList.getLength(); i++) 
+        {         
+            Node node = nodeList.item(i);
+
+            if (node.getNodeType() == Node.ELEMENT_NODE)
+            {
+                if(node.getNodeName().equals("EuropeanOption"))
+                {
+                    Element elem = (Element) node;
+                     
+                    stock_price = Double.parseDouble(elem.getElementsByTagName("stock_price").item(0).getChildNodes().item(0).getNodeValue());
+                     
+                    strike_price = Integer.parseInt(elem.getElementsByTagName("strike_price").item(0).getChildNodes().item(0).getNodeValue());
+                     
+                    interest_rate = Double.parseDouble(elem.getElementsByTagName("interest_rate").item(0).getChildNodes().item(0).getNodeValue());
+                     
+                    numberOfSteps = Integer.parseInt(elem.getElementsByTagName("numberOfSteps").item(0).getChildNodes().item(0).getNodeValue());
+                     
+                    timeTillExpiration = Double.parseDouble(elem.getElementsByTagName("timeTillExpiration").item(0).getChildNodes().item(0).getNodeValue());
+
+                    numberOfComputations = Integer.parseInt(elem.getElementsByTagName("numberOfComputations").item(0).getChildNodes().item(0).getNodeValue());
+
+                    volatility = Double.parseDouble(elem.getElementsByTagName("volatility").item(0).getChildNodes().item(0).getNodeValue());
+
+                    totalPayoff = Double.parseDouble(elem.getElementsByTagName("totalPayoff").item(0).getChildNodes().item(0).getNodeValue());
+
+                    averagePayoff = Double.parseDouble(elem.getElementsByTagName("averagePayoff").item(0).getChildNodes().item(0).getNodeValue());
+
+                    compundRate = Double.parseDouble(elem.getElementsByTagName("compundRate").item(0).getChildNodes().item(0).getNodeValue());                      
+                }
+            }
+        }
+
         EuropeanOption eo = new EuropeanOption();
         eo.calculateEuropeanOption(stock_price,strike_price,interest_rate,numberOfSteps,timeTillExpiration,numberOfComputations,volatility,totalPayoff,averagePayoff,compundRate);
-        }
+    }
 
     public double calculateEuropeanOption(double stock_price, int strike_price, double interest_rate, int numberOfSteps, double timeTillExpiration,int numberOfComputations,  double volatility, double totalPayoff, double averagePayoff, double compundRate)
     {

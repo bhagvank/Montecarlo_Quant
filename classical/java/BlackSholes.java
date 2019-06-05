@@ -1,4 +1,11 @@
 import java.util.*;
+import java.io.*;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.DocumentBuilder;
+import org.w3c.dom.Document;
+import org.w3c.dom.NodeList;
+import org.w3c.dom.Node;
+import org.w3c.dom.Element;
 
 public class BlackSholes {
 
@@ -61,12 +68,45 @@ public class BlackSholes {
          return Math.exp(-r*t) * mean;
     }
 
-    public static void main(String[] args) {
-        double s     = Double.parseDouble(args[0]);
-        double x     = Double.parseDouble(args[1]);
-        double r     = Double.parseDouble(args[2]);
-        double sigma = Double.parseDouble(args[3]);
-        double t     = Double.parseDouble(args[4]);
+    public static void main(String[] args) throws Exception 
+    {
+        double s     = 0.0;
+        double x     = 0.0;
+        double r     = 0.0;
+        double sigma = 0.0;
+        double t     = 0.0;
+
+        File fXmlFile = new File("input.xml");
+        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder builder = factory.newDocumentBuilder();
+        Document document = builder.parse(fXmlFile);
+
+        document.getDocumentElement().normalize();
+
+        NodeList nodeList = document.getDocumentElement().getChildNodes();
+        for (int i = 0; i < nodeList.getLength(); i++) 
+        {         
+            Node node = nodeList.item(i);
+
+            if (node.getNodeType() == Node.ELEMENT_NODE)
+            {
+                if(node.getNodeName().equals("BlackSholes"))
+                {
+                    Element elem = (Element) node;
+                     
+                    s = Double.parseDouble(elem.getElementsByTagName("s").item(0).getChildNodes().item(0).getNodeValue());
+                     
+                    x = Double.parseDouble(elem.getElementsByTagName("x").item(0).getChildNodes().item(0).getNodeValue());
+                     
+                    r = Double.parseDouble(elem.getElementsByTagName("r").item(0).getChildNodes().item(0).getNodeValue());
+                     
+                    sigma = Double.parseDouble(elem.getElementsByTagName("sigma").item(0).getChildNodes().item(0).getNodeValue());
+                     
+                    t = Double.parseDouble(elem.getElementsByTagName("t").item(0).getChildNodes().item(0).getNodeValue());                     
+                }
+            }
+        }
+
         BlackSholes bs = new BlackSholes();
         System.out.println(bs.callPrice(s, x, r, sigma, t));
         System.out.println(bs.call(s, x, r, sigma, t));
