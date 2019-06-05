@@ -10,6 +10,8 @@ from .models import SlackUser
 from time import time
 from math import exp, sqrt, log
 from random import gauss, seed
+import scipy as sp
+import numpy as np
 
 import os
 import logging
@@ -199,3 +201,44 @@ def euro_montecarlo(request):
                 'time_taken': time_taken}
 
   return render(request, template_name,context)
+
+def asian_option(request):
+    template_name = 'montecarlo/asian_option.html'
+
+    return render(request, template_name)
+
+def asian_montecarlo(request):
+    seed(20000)
+    initial_time = time()
+    template_name='montecarlo/asian_montecarlo.html'
+
+    s0 = float(request.POST["initial_value"])
+    x = float(request.POST["exercise_price"])
+
+    T = float(request.POST["maturity"])
+    r = float(request.POST["risk"])
+
+    sigma = float(request.POST["volatility"])
+
+    n_simulation= int(request.POST["n_simulations"])
+    n_steps = int(request.POST["n_steps"])
+    sT=1
+    total=0
+    dt=T/n_steps
+    call=sp.zeros([n_simulation],dtype=float)
+    for j in range(0, n_simulation):
+       sT*=s0
+       total=0
+       for i in range(0,int(n_steps)):
+        	e=sp.random.normal()
+        	sT*=sp.exp((r-0.5*sigma*sigma)*dt+sigma*e*sp.sqrt(dt))
+        	total+=sT
+       price_average=total/n_steps
+       call[j]=max(price_average-x,0)
+    call_price=np.mean(call)*exp(-r*T)
+#    print ('call price = ', round(call_price,3))
+    cp=round(call_price,3)
+    time_taken = time() - initial_time
+    context = {'option_value': call_price,'time_taken': time_taken}
+
+    return render(request, template_name,context)
