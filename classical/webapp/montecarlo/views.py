@@ -8,6 +8,7 @@ from django.utils import timezone
 from django.template import loader
 from .models import SlackUser
 from time import time
+import math
 from math import exp, sqrt, log
 from random import gauss, seed
 import scipy as sp
@@ -17,6 +18,7 @@ import datetime
 import os
 import logging
 import base64
+
 logger = logging.getLogger("montecarlo_logger")
 
 def login(request):
@@ -277,12 +279,12 @@ def black_sholes_montecarlo(request):
 
     K = float(request.POST["K"])
 
-    simulations= int(request.POST["simulations"])
+    simulations= int(request.POST["n_simulations"])
 
     payoffs = []
     discount_factor = math.exp(-r * T)
 
-    for i in xrange(simulations):
+    for i in range(simulations):
         S_T = generate_asset_price(S,v,r,T)
         payoffs.append(
             call_payoff(S_T, K)
