@@ -1,0 +1,153 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<head>
+<link rel="stylesheet" href="{% static 'montecarlo/bootstrap.css' %}">
+<link rel="stylesheet" href="{% static 'montecarlo/custom.min.css' %}">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>{% block title %}Least Square  Options{% endblock %}</title>
+
+</head>
+
+<body>
+
+
+{% block header %}
+<div class="container">
+
+      <div class="page-header" id="banner">
+        <div class="row">
+          <div class="col-lg-8 col-md-7 col-sm-6">
+            <h1>Monte Carlo</h1>
+            <p class="lead"> Monte Carlo Quant</p>
+          </div>
+          <div class="col-lg-4 col-md-5 col-sm-6">
+            <div class="sponsor">
+              <img src="{% static 'montecarlo/images/logo.png' %}" width="150" height="150" class="center" align="middle">
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+  <div class="bs-docs-section clearfix">
+     <div class="bs-component">
+              <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+                <a class="navbar-brand" href="#">Monte Carlo Quant</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+                  <span class="navbar-toggler-icon"></span>
+                </button>
+
+                 <div class="collapse navbar-collapse" id="navbarColor01">
+                  <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                      <a class="nav-link" href="/montecarlo/main">Home <span class="sr-only">(current)</span></a>
+                    </li>
+                  </ul>
+                </div>
+              </nav>
+
+    </div>
+  </div>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="bs-docs-section">
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="page-header">
+              <h1 id="forms">Least Square Options</h1>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-lg-6">
+            <div class="bs-component">
+              <form action="/montecarlo/least_square_montecarlo/" method="POST">
+                {% csrf_token %}
+                <fieldset>
+                  <div class="form-group">
+                    <label for="initial_stock_price">Initial Stock Price</label>
+                    <input type="number" step=0.01 class="form-control" id="initial_stock_price" name="initial_stock_price" aria-describedby="initial_stock_priceHelp" placeholder="Initial Stock Price">
+                    <small id="initial_stock_priceHelp" class="form-text text-muted">{{ error_initial_stock_price }}</small>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="strike">Strike</label>
+                    <input type="numbers" step=0.01 class="form-control" id="strike_price" name="strike_price" aria-describedby="strikeHelp" placeholder="strike Price">
+                    <small id="strikeHelp" class="form-text text-muted">{{ error_strike }}</small>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="volatility">Volatility</label>
+                    <input type="number" step=0.01 class="form-control" id="volatility" name="volatility" aria-describedby="volatilityHelp" placeholder="Volatility">
+                    <small id="volatilityHelp" class="form-text text-muted">{{ error_volatility }}</small>
+                 </div>
+
+                 <!-- <div class="form-group">
+                   <label for="sigma">Sigma</label>
+                   <input type="number" step=0.01 class="form-control" id="sigma" name="sigma" aria-describedby="sigmaHelp" placeholder="sigma">
+                   <small id="sigmaHelp" class="form-text text-muted">{{ error_sigma }}</small>
+                </div> -->
+
+                 <div class="form-group">
+                   <label for="risk">Risk Free Rate</label>
+                   <input type="number" step=0.01 class="form-control" id="risk" name="risk" aria-describedby="riskHelp" placeholder="Risk Free Rate">
+                   <small id="riskHelp" class="form-text text-muted">{{ error_risk }}</small>
+
+                 </div>
+
+                  <div class="form-group">
+                    <label for="time_to_maturity">Time to Maturity</label>
+                    <input type="number" step=0.01 class="form-control" id="time_to_maturity" name="time_to_maturity" aria-describedby="time_to_maturityHelp" placeholder="Time to Maturity">
+                    <small id="time_to_maturityHelp" class="form-text text-muted">{{ error_time_to_maturity }}</small>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="maturity">Maturity</label>
+                    <input type="number" step=0.01 class="form-control" id="maturity" name="maturity" aria-describedby="maturityHelp" placeholder="Maturity">
+                    <small id="maturityHelp" class="form-text text-muted">{{ error_maturity }}</small>
+
+                  </div>
+
+                  <div class="form-group">
+                    <label for="n_simulations">Number of Simulation</label>
+                    <input type="number" step=0.01 class="form-control" id="n_simulations" name="n_simulations"  aria-describedby="n_simulationHelp" placeholder="Number of Simulation">
+                    <small id="n_simulationHelp" class="form-text text-muted">{{ error_n_simulation }}</small>
+                  </div>
+
+                  <!-- <div class="form-group">
+                    <label for="num_steps">Number of Steps</label>
+                    <input type="numumber" step=0.01 class="form-control" id="num_steps" name="num_steps" aria-describedby="num_stepsHelp" placeholder="Number of Steps">
+                    <small id="num_stepsHelp" class="form-text text-muted">{{ error_num_steps }}</small>
+
+                  </div> -->
+                  <div class="form-group">
+                    <label for="div">Div</label>
+                    <input type="number" step=0.01 class="form-control" id="div" name="div" aria-describedby="divHelp" placeholder="div">
+                    <small id="divHelp" class="form-text text-muted">{{ error_div }}</small>
+
+                  </div>
+<!--
+                  <div class="form-group">
+                    <label for="time_steps">Time Steps</label>
+                    <input type="number" step=0.01 class="form-control" id="time_steps" name="time_steps" aria-describedby="time_stepsHelp" placeholder="Time Steps">
+                    <small id="time_stepsHelp" class="form-text text-muted">{{ error_time_steps }}</small>
+
+                  </div> -->
+
+
+                  <button type="submit" class="btn btn-primary">Submit</button>
+              </fieldset>
+            </form>
+           </div>
+         </div>
+       </div>
+</div>
+
+ {% endblock %}
+ </div>
+ </body>
+ </html>
