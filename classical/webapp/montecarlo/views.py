@@ -14,7 +14,7 @@ from random import gauss, seed
 import scipy as sp
 import numpy as np
 import datetime
-from .LeastSquareMontecarlo import LeastSquareMontecarlo
+from .LeastSquareMontecarlo import AmericanOptionsLSMC
 import os
 import logging
 import base64
