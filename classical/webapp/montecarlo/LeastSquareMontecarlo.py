@@ -1,4 +1,4 @@
-class AmericanOptionsLSMC(object):
+class LeastSquareMontecarlo(object):
     """ Class for American options pricing using Longstaff-Schwartz (2001):
     "Valuing American Options by Simulation: A Simple Least-Squares Approach."
     Review of Financial Studies, Vol. 14, 113-147.
