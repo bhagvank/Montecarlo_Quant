@@ -310,11 +310,11 @@ def least_square_montecarlo(request):
 
     strike = float(request.POST["strike"])
 
-    M = float(request.POST["maturity"])
+    M = float(request.POST["granularity_for_time"])
     r = float(request.POST["risk"])
     simulations=float(request.POST["n_simulations"])
     sigma = float(request.POST["volatility"])
-    div=float(request.POST["div"])
+    div=float(request.POST["dividend_yield"])
 
     # Time_Steps= int(request.POST["time_steps"])
     # num_paths = int(request.POST["num_paths"])
@@ -330,10 +330,10 @@ def least_square_montecarlo(request):
     #print "Initial price: %4.1f, Sigma: %4.2f, Expire: %2.1f --> Option Value %8.3f" % (S0, vol, T, AmericanPUT.price)
 
 
-    optionValues = least_square_montecarlo()  # calculate all values
+    optionValues = least_square_montecarlo(AmericanPUT.price)  # calculate all values
     t1 = time(); d1 = t1 - t0
     context={
-    'AmericanOptionsLSMC':AmericanOptionsLSMC,
+    'optionValues':optionValues,
     'time':d1
     }
 

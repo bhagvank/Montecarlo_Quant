@@ -67,7 +67,7 @@ class LeastSquareMontecarlo(object):
         np.random.seed(seed)
         MCprice_matrix = np.zeros((self.M + 1, self.simulations), dtype=np.float64)
         MCprice_matrix[0,:] = self.S0
-        for t in xrange(1, self.M + 1):
+        for t in range(1, self.M + 1):
             brownian = np.random.standard_normal( self.simulations / 2)
             brownian = np.concatenate((brownian, -brownian))
             MCprice_matrix[t, :] = (MCprice_matrix[t - 1, :]
