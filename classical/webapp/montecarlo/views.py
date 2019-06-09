@@ -303,7 +303,7 @@ def least_square_option(request):
 
     return render(request, template_name)
 
-def least_square_montecarlo():
+def least_square_montecarlo(request):
     S0 = float(request.POST["initial_stock_price"])
 #    vol = float(request.POST["volatility"])
     T=float(request.POST["time_to_maturity"])
@@ -313,7 +313,7 @@ def least_square_montecarlo():
     M = float(request.POST["maturity"])
     r = float(request.POST["risk"])
     simulations=float(request.POST["n_simulations"])
-    sigma = float(request.POST["volatilitys"])
+    sigma = float(request.POST["volatility"])
     div=float(request.POST["div"])
 
     # Time_Steps= int(request.POST["time_steps"])
@@ -326,7 +326,7 @@ def least_square_montecarlo():
     # for S0 in (36., 38., 40., 42., 44.):  # initial stock price values
     #     for vol in (0.2, 0.4):  # volatility values
     #         for T in (1.0, 2.0):  # times-to-maturity
-    AmericanPUT = AmericanOptionsLSMC('put', S0, strike, T, M, r, div, sigma, simulations)
+    AmericanPUT = LeastSquareMontecarlo('put', S0, strike, T, M, r, div, sigma, simulations)
     #print "Initial price: %4.1f, Sigma: %4.2f, Expire: %2.1f --> Option Value %8.3f" % (S0, vol, T, AmericanPUT.price)
 
 

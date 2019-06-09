@@ -76,7 +76,7 @@
 
                   <div class="form-group">
                     <label for="strike">Strike</label>
-                    <input type="numbers" step=0.01 class="form-control" id="strike_price" name="strike_price" aria-describedby="strikeHelp" placeholder="strike Price">
+                    <input type="numbers" step=0.01 class="form-control" id="strike" name="strike" aria-describedby="strikeHelp" placeholder="Strike">
                     <small id="strikeHelp" class="form-text text-muted">{{ error_strike }}</small>
                   </div>
 
@@ -93,10 +93,9 @@
                 </div> -->
 
                  <div class="form-group">
-                   <label for="risk">Risk Free Rate</label>
+                   <label for="r">Risk Free Rate</label>
                    <input type="number" step=0.01 class="form-control" id="risk" name="risk" aria-describedby="riskHelp" placeholder="Risk Free Rate">
                    <small id="riskHelp" class="form-text text-muted">{{ error_risk }}</small>
-
                  </div>
 
                   <div class="form-group">
@@ -109,7 +108,6 @@
                     <label for="maturity">Maturity</label>
                     <input type="number" step=0.01 class="form-control" id="maturity" name="maturity" aria-describedby="maturityHelp" placeholder="Maturity">
                     <small id="maturityHelp" class="form-text text-muted">{{ error_maturity }}</small>
-
                   </div>
 
                   <div class="form-group">
@@ -126,9 +124,8 @@
                   </div> -->
                   <div class="form-group">
                     <label for="div">Div</label>
-                    <input type="number" step=0.01 class="form-control" id="div" name="div" aria-describedby="divHelp" placeholder="div">
+                    <input type="number" step=0.01 class="form-control" id="div" name="div" aria-describedby="divHelp" placeholder="Div">
                     <small id="divHelp" class="form-text text-muted">{{ error_div }}</small>
-
                   </div>
 <!--
                   <div class="form-group">

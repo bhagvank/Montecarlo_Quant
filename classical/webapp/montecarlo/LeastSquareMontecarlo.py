@@ -1,3 +1,18 @@
+
+
+
+import IPython
+import numpy as np
+import warnings
+warnings.filterwarnings("ignore")
+from sys import version
+# print ' Least-Squares MC for American Options: Conditions for Replication '.center(85,"-")
+# print 'Python version:     ' + version
+# print 'Numpy version:      ' + np.__version__
+# print 'IPython version:    ' + IPython.__version__
+# print '-'*85
+
+
 class LeastSquareMontecarlo(object):
     """ Class for American options pricing using Longstaff-Schwartz (2001):
     "Valuing American Options by Simulation: A Simple Least-Squares Approach."
@@ -11,7 +26,7 @@ class LeastSquareMontecarlo(object):
     sigma :  float : volatility factor in diffusion term
 
     Unitest(doctest):
-    >>> AmericanPUT = AmericanOptionsLSMC('put', 36., 40., 1., 50, 0.06, 0.06, 0.2, 10000  )
+    >>> AmericanPUT = LeastSquareMontecarlo('put', 36., 40., 1., 50, 0.06, 0.06, 0.2, 10000  )
     >>> AmericanPUT.price
     4.4731177017712209
     """
@@ -92,10 +107,10 @@ class LeastSquareMontecarlo(object):
     @property
     def delta(self):
         diff = self.S0 * 0.01
-        myCall_1 = AmericanOptionsLSMC(self.option_type, self.S0 + diff,
+        myCall_1 = LeastSquareMontecarlo(self.option_type, self.S0 + diff,
                                        self.strike, self.T, self.M,
                                        self.r, self.div, self.sigma, self.simulations)
-        myCall_2 = AmericanOptionsLSMC(self.option_type, self.S0 - diff,
+        myCall_2 = LeastSquareMontecarlo(self.option_type, self.S0 - diff,
                                        self.strike, self.T, self.M,
                                        self.r, self.div, self.sigma, self.simulations)
         return (myCall_1.price - myCall_2.price) / float(2. * diff)
@@ -103,10 +118,10 @@ class LeastSquareMontecarlo(object):
     @property
     def gamma(self):
         diff = self.S0 * 0.01
-        myCall_1 = AmericanOptionsLSMC(self.option_type, self.S0 + diff,
+        myCall_1 = LeastSquareMontecarlo(self.option_type, self.S0 + diff,
                                        self.strike, self.T, self.M,
                                        self.r, self.div, self.sigma, self.simulations)
-        myCall_2 = AmericanOptionsLSMC(self.option_type, self.S0 - diff,
+        myCall_2 = LeastSquareMontecarlo(self.option_type, self.S0 - diff,
                                        self.strike, self.T, self.M,
                                        self.r, self.div, self.sigma, self.simulations)
         return (myCall_1.delta - myCall_2.delta) / float(2. * diff)
@@ -114,11 +129,11 @@ class LeastSquareMontecarlo(object):
     @property
     def vega(self):
         diff = self.sigma * 0.01
-        myCall_1 = AmericanOptionsLSMC(self.option_type, self.S0,
+        myCall_1 = LeastSquareMontecarlo(self.option_type, self.S0,
                                        self.strike, self.T, self.M,
                                        self.r, self.div, self.sigma + diff,
                                        self.simulations)
-        myCall_2 = AmericanOptionsLSMC(self.option_type, self.S0,
+        myCall_2 = LeastSquareMontecarlo(self.option_type, self.S0,
                                        self.strike, self.T, self.M,
                                        self.r, self.div, self.sigma - diff,
                                        self.simulations)
@@ -128,21 +143,21 @@ class LeastSquareMontecarlo(object):
     def rho(self):
         diff = self.r * 0.01
         if (self.r - diff) < 0:
-            myCall_1 = AmericanOptionsLSMC(self.option_type, self.S0,
+            myCall_1 = LeastSquareMontecarlo(self.option_type, self.S0,
                                        self.strike, self.T, self.M,
                                        self.r + diff, self.div, self.sigma,
                                        self.simulations)
-            myCall_2 = AmericanOptionsLSMC(self.option_type, self.S0,
+            myCall_2 = LeastSquareMontecarlo(self.option_type, self.S0,
                                        self.strike, self.T, self.M,
                                        self.r, self.div, self.sigma,
                                        self.simulations)
             return (myCall_1.price - myCall_2.price) / float(diff)
         else:
-            myCall_1 = AmericanOptionsLSMC(self.option_type, self.S0,
+            myCall_1 = LeastSquareMontecarlo(self.option_type, self.S0,
                                        self.strike, self.T, self.M,
                                        self.r + diff, self.div, self.sigma,
                                        self.simulations)
-            myCall_2 = AmericanOptionsLSMC(self.option_type, self.S0,
+            myCall_2 = LeastSquareMontecarlo(self.option_type, self.S0,
                                        self.strike, self.T, self.M,
                                        self.r - diff, self.div, self.sigma,
                                        self.simulations)
@@ -151,11 +166,11 @@ class LeastSquareMontecarlo(object):
     @property
     def theta(self):
         diff = 1 / 252.
-        myCall_1 = AmericanOptionsLSMC(self.option_type, self.S0,
+        myCall_1 = LeastSquareMontecarlo(self.option_type, self.S0,
                                        self.strike, self.T + diff, self.M,
                                        self.r, self.div, self.sigma,
                                        self.simulations)
-        myCall_2 = AmericanOptionsLSMC(self.option_type, self.S0,
+        myCall_2 = LeastSquareMontecarlo(self.option_type, self.S0,
                                        self.strike, self.T - diff, self.M,
                                        self.r, self.div, self.sigma,
                                        self.simulations)
