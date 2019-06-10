@@ -239,7 +239,7 @@ def asian_montecarlo(request):
        price_average=total/n_steps
        call[j]=max(price_average-x,0)
     call_price=np.mean(call)*exp(-r*T)
-#    print ('call price = ', round(call_price,3))
+
     cp=round(call_price,3)
     time_taken = time() - initial_time
     context = {'option_value': call_price,'time_taken': time_taken}
@@ -252,12 +252,6 @@ def generate_asset_price(S,v,r,T):
 def call_payoff(S_T,K):
     return max(0.0,S_T-K)
 
-# S = 857.29 # underlying price
-# v = 0.2076 # vol of 20.76%
-# r = 0.0014 # rate of 0.14%
-
-# K = 860.
-# simulations = 90000
 
 def black_sholes_option(request):
 
@@ -274,9 +268,6 @@ def black_sholes_montecarlo(request):
     v = float(request.POST["volume"])
     T = (datetime.date(2013,9,21) - datetime.date(2013,9,3)).days / 365.0
     r = float(request.POST["rate"])
-
-#    r = float(request.POST["risk"])
-
     K = float(request.POST["K"])
 
     simulations= int(request.POST["n_simulations"])
@@ -298,37 +289,24 @@ def black_sholes_montecarlo(request):
 
 def least_square_option(request):
 
-
     template_name = 'montecarlo/least_square_option.html'
-
     return render(request, template_name)
 
 def least_square_montecarlo(request):
+
     S0 = float(request.POST["initial_stock_price"])
-#    vol = float(request.POST["volatility"])
     T=float(request.POST["time_to_maturity"])
-
     strike = float(request.POST["strike"])
-
     M = float(request.POST["granularity_for_time"])
     r = float(request.POST["risk"])
-    simulations=float(request.POST["n_simulations"])
+    simulations=int(request.POST["n_simulations"])
     sigma = float(request.POST["volatility"])
     div=float(request.POST["dividend_yield"])
 
-    # Time_Steps= int(request.POST["time_steps"])
-    # num_paths = int(request.POST["num_paths"])
-
     template_name='montecarlo/least_square_montecarlo.html'
     t0 = time()
-    # self, option_type, S0, strike, T, M, r, div, sigma, simulations
-    # 'put', S0, 40., T, 50, 0.06, 0.06, vol, 1500
-    # for S0 in (36., 38., 40., 42., 44.):  # initial stock price values
-    #     for vol in (0.2, 0.4):  # volatility values
-    #         for T in (1.0, 2.0):  # times-to-maturity
-    AmericanPUT = LeastSquareMontecarlo('put', S0, strike, T, M, r, div, sigma, simulations)
-    #print "Initial price: %4.1f, Sigma: %4.2f, Expire: %2.1f --> Option Value %8.3f" % (S0, vol, T, AmericanPUT.price)
 
+    AmericanPUT = LeastSquareMontecarlo('put', S0, strike, T, M, r, div, sigma, simulations)
 
     optionValues = least_square_montecarlo(AmericanPUT.price)  # calculate all values
     t1 = time(); d1 = t1 - t0
@@ -338,4 +316,3 @@ def least_square_montecarlo(request):
     }
 
     return render(request,template_name,context)
-#    print "Duration in Seconds %6.3f" % d1

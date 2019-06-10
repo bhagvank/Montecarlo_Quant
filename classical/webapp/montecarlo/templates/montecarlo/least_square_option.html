@@ -86,14 +86,8 @@
                     <small id="volatilityHelp" class="form-text text-muted">{{ error_volatility }}</small>
                  </div>
 
-                 <!-- <div class="form-group">
-                   <label for="sigma">Sigma</label>
-                   <input type="number" step=0.01 class="form-control" id="sigma" name="sigma" aria-describedby="sigmaHelp" placeholder="sigma">
-                   <small id="sigmaHelp" class="form-text text-muted">{{ error_sigma }}</small>
-                </div> -->
-
                  <div class="form-group">
-                   <label for="r">Risk Free Rate</label>
+                   <label for="rate">Risk Free Rate</label>
                    <input type="number" step=0.01 class="form-control" id="risk" name="risk" aria-describedby="riskHelp" placeholder="Risk Free Rate">
                    <small id="riskHelp" class="form-text text-muted">{{ error_risk }}</small>
                  </div>
@@ -116,25 +110,11 @@
                     <small id="n_simulationHelp" class="form-text text-muted">{{ error_n_simulation }}</small>
                   </div>
 
-                  <!-- <div class="form-group">
-                    <label for="num_steps">Number of Steps</label>
-                    <input type="numumber" step=0.01 class="form-control" id="num_steps" name="num_steps" aria-describedby="num_stepsHelp" placeholder="Number of Steps">
-                    <small id="num_stepsHelp" class="form-text text-muted">{{ error_num_steps }}</small>
-
-                  </div> -->
                   <div class="form-group">
                     <label for="dividend_yield">Dividend Yield</label>
                     <input type="number" step=0.01 class="form-control" id="dividend_yield" name="dividend_yield" aria-describedby="dividend_yieldHelp" placeholder="Dividend Yield">
                     <small id="dividend_yieldHelp" class="form-text text-muted">{{ error_dividend_yield }}</small>
                   </div>
-<!--
-                  <div class="form-group">
-                    <label for="time_steps">Time Steps</label>
-                    <input type="number" step=0.01 class="form-control" id="time_steps" name="time_steps" aria-describedby="time_stepsHelp" placeholder="Time Steps">
-                    <small id="time_stepsHelp" class="form-text text-muted">{{ error_time_steps }}</small>
-
-                  </div> -->
-
 
                   <button type="submit" class="btn btn-primary">Submit</button>
               </fieldset>

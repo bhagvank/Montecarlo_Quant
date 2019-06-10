@@ -1,17 +1,8 @@
-
-
-
 import IPython
 import numpy as np
 import warnings
 warnings.filterwarnings("ignore")
 from sys import version
-# print ' Least-Squares MC for American Options: Conditions for Replication '.center(85,"-")
-# print 'Python version:     ' + version
-# print 'Numpy version:      ' + np.__version__
-# print 'IPython version:    ' + IPython.__version__
-# print '-'*85
-
 
 class LeastSquareMontecarlo(object):
     """ Class for American options pricing using Longstaff-Schwartz (2001):
@@ -68,7 +59,7 @@ class LeastSquareMontecarlo(object):
         MCprice_matrix = np.zeros((self.M + 1, self.simulations), dtype=np.float64)
         MCprice_matrix[0,:] = self.S0
         for t in range(1, self.M + 1):
-            brownian = np.random.standard_normal( self.simulations / 2)
+            brownian = np.random.standard_normal(int( self.simulations / 2))
             brownian = np.concatenate((brownian, -brownian))
             MCprice_matrix[t, :] = (MCprice_matrix[t - 1, :]
                                   * np.exp((self.r - self.sigma ** 2 / 2.) * self.time_unit
