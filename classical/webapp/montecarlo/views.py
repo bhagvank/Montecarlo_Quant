@@ -308,7 +308,7 @@ def least_square_montecarlo(request):
 
     AmericanPUT = LeastSquareMontecarlo('put', S0, strike, T, M, r, div, sigma, simulations)
 
-    optionValues = least_square_montecarlo(AmericanPUT.price)  # calculate all values
+    optionValues = AmericanPUT.price  # calculate all values
     t1 = time(); d1 = t1 - t0
     context={
     'optionValues':optionValues,
