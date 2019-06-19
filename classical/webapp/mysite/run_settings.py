@@ -92,7 +92,11 @@ DATABASES = {
         'HOST' : 'localhost',
         'NAME' : 'registration',
         'USER' : 'newuser',
+<<<<<<< HEAD
         'PASSWORD' : 'oneTwo$232432'
+=======
+        'PASSWORD' : 'newuser'
+>>>>>>> cc71e221ac603d10e99969533f11bd2561cfd630
                }
             }
 

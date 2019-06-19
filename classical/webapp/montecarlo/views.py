@@ -8,6 +8,7 @@ from django.utils import timezone
 from django.template import loader
 from .models import SlackUser
 from time import time
+<<<<<<< HEAD
 import math
 from math import exp, sqrt, log
 from random import gauss, seed
@@ -19,6 +20,14 @@ import os
 import logging
 import base64
 
+=======
+from math import exp, sqrt, log
+from random import gauss, seed
+
+import os
+import logging
+import base64
+>>>>>>> cc71e221ac603d10e99969533f11bd2561cfd630
 logger = logging.getLogger("montecarlo_logger")
 
 def login(request):
@@ -171,6 +180,14 @@ def euro_montecarlo(request):
 
   initial_value = float(request.POST["initial_value"])
   Strike_Price = float(request.POST["strike_price"])
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+
+  Maturity = float(request.POST["maturity"])
+  risk = float(request.POST["risk"])
+=======
+>>>>>>> cc71e221ac603d10e99969533f11bd2561cfd630
 
   Maturity = float(request.POST["maturity"])
   risk = float(request.POST["risk"])
@@ -179,6 +196,17 @@ def euro_montecarlo(request):
 
   Time_Steps= int(request.POST["time_steps"])
   num_paths = int(request.POST["num_paths"])
+<<<<<<< HEAD
+=======
+  dt = Maturity / Time_Steps
+  dt = Maturity / Time_Steps
+>>>>>>> 0470ed3c8a2fc2bdceded2bb817e3394a472b11e
+
+  volatility = float(request.POST["volatility"])
+
+  Time_Steps= int(request.POST["time_steps"])
+  num_paths = int(request.POST["num_paths"])
+>>>>>>> cc71e221ac603d10e99969533f11bd2561cfd630
 
   dt = Maturity / Time_Steps
 
@@ -204,6 +232,7 @@ def euro_montecarlo(request):
                 'time_taken': time_taken}
 
   return render(request, template_name,context)
+<<<<<<< HEAD
 
 def asian_option(request):
     template_name = 'montecarlo/asian_option.html'
@@ -316,3 +345,5 @@ def least_square_montecarlo(request):
     }
 
     return render(request,template_name,context)
+=======
+>>>>>>> cc71e221ac603d10e99969533f11bd2561cfd630
