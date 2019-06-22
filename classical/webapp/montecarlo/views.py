@@ -1,6 +1,6 @@
 from django.shortcuts import get_object_or_404, render
 
-
+from django.views.decorators.csrf import requires_csrf_token
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
 from django.views import generic
@@ -36,6 +36,7 @@ def logout(request):
     template_name = 'montecarlo/login.html'
     return render(request, template_name)
 
+@requires_csrf_token
 def authenticate(request):
     print("authenticating")
     username = request.POST['useremail']

@@ -67,8 +67,7 @@
         <div class="row">
           <div class="col-lg-6">
             <div class="bs-component">
-              <form action="/montecarlo/authenticate/" method="post">
-                {% csrf_token %}
+              <form action="/montecarlo/authenticate/" method="post">{% csrf_token %}
                 <fieldset>
                   <div class="form-group">
                     <label for="useremail">Email address</label>
