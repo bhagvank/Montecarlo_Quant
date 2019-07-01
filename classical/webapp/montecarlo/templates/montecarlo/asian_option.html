@@ -4,7 +4,7 @@
 <link rel="stylesheet" href="{% static 'montecarlo/bootstrap.css' %}">
 <link rel="stylesheet" href="{% static 'montecarlo/custom.min.css' %}">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>{% block title %}European Options{% endblock %}</title>
+<title>{% block title %}Asian Options{% endblock %}</title>
 
 </head>
 
@@ -57,7 +57,7 @@
         <div class="row">
           <div class="col-lg-12">
             <div class="page-header">
-              <h1 id="forms">European Options</h1>
+              <h1 id="forms">Asian Options</h1>
             </div>
           </div>
         </div>
@@ -65,7 +65,7 @@
         <div class="row">
           <div class="col-lg-6">
             <div class="bs-component">
-              <form action="/montecarlo/euro_montecarlo/" method="POST">
+              <form action="/montecarlo/asian_montecarlo/" method="POST">
                 {% csrf_token %}
                 <fieldset>
                   <div class="form-group">
@@ -74,38 +74,40 @@
                     <small id="initial_valueHelp" class="form-text text-muted">{{ error_intial_value }}</small>
                   </div>
                   <div class="form-group">
-                    <label for="strike_price">Strike Price</label>
-                    <input type="number" step=0.01 class="form-control" id="strike_price" name="strike_price"  aria-describedby="strike_priceHelp" placeholder="Strike Price">
-                    <small id="strike_priceHelp" class="form-text text-muted">{{ error_strike_price }}</small>
+                    <label for="n_simulations">Number of Simulation</label>
+                    <input type="number" step=0.01 class="form-control" id="n_simulations" name="n_simulations"  aria-describedby="n_simulationHelp" placeholder="Number of Simulation">
+                    <small id="n_simulationHelp" class="form-text text-muted">{{ error_n_simulation }}</small>
                   </div>
                   <div class="form-group">
                     <label for="maturity">Maturity</label>
                     <input type="number" step=0.01 class="form-control" id="maturity" name="maturity" aria-describedby="maturityHelp" placeholder="Maturity">
                     <small id="maturityHelp" class="form-text text-muted">{{ error_maturity }}</small>
-                  </div>
 
+                  </div>
                   <div class="form-group">
-                    <label for="risk">Risk</label>
-                    <input type="number" step=0.01 class="form-control" id="risk" name="risk" aria-describedby="riskHelp" placeholder="Risk">
+                    <label for="risk">Risk Free Rate</label>
+                    <input type="number" step=0.01 class="form-control" id="risk" name="risk" aria-describedby="riskHelp" placeholder="Risk Free Rate">
                     <small id="riskHelp" class="form-text text-muted">{{ error_risk }}</small>
-                  </div>
 
+                  </div>
                   <div class="form-group">
                     <label for="volatility">Volatility</label>
                     <input type="number" step=0.01 class="form-control" id="volatility" name="volatility" aria-describedby="volatilityHelp" placeholder="Volatility">
                     <small id="volatilityHelp" class="form-text text-muted">{{ error_volatility }}</small>
-                  </div>
-                  <div class="form-group">
-                    <label for="time_steps">Time Steps</label>
-                    <input type="number" step=0.01 class="form-control" id="time_steps" name="time_steps" aria-describedby="time_stepsHelp" placeholder="Time Steps">
-                    <small id="time_stepsHelp" class="form-text text-muted">{{ error_time_steps }}</small>
-                  </div>
-                  <div class="form-group">
-                    <label for="num_paths">Num Paths</label>
-                    <input type="numbers" step=0.01 class="form-control" id="num_paths" name="num_paths" aria-describedby="num_pathsHelp" placeholder="Num Path">
-                    <small id="num_pathsHelp" class="form-text text-muted">{{ error_num_paths }}</small>
-                  </div>
 
+                  </div>
+                  <div class="form-group">
+                    <label for="n_steps">Number of Steps</label>
+                    <input type="number" step=0.01 class="form-control" id="n_steps" name="n_steps" aria-describedby="n_stepsHelp" placeholder="Number of Steps">
+                    <small id="n_stepsHelp" class="form-text text-muted">{{ error_n_steps }}</small>
+
+                  </div>
+                  <div class="form-group">
+                    <label for="exercise_prices">Exercise Price</label>
+                    <input type="numbers" step=0.01 class="form-control" id="exercise_price" name="exercise_price" aria-describedby="exercise_pricesHelp" placeholder="Exercise Price">
+                    <small id="exercise_pricesHelp" class="form-text text-muted">{{ error_exercise_prices }}</small>
+
+                  </div>
                   <button type="submit" class="btn btn-primary">Submit</button>
               </fieldset>
             </form>

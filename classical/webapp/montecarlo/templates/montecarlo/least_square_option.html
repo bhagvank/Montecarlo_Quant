@@ -4,7 +4,7 @@
 <link rel="stylesheet" href="{% static 'montecarlo/bootstrap.css' %}">
 <link rel="stylesheet" href="{% static 'montecarlo/custom.min.css' %}">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>{% block title %}European Options{% endblock %}</title>
+<title>{% block title %}Least Square  Options{% endblock %}</title>
 
 </head>
 
@@ -57,7 +57,7 @@
         <div class="row">
           <div class="col-lg-12">
             <div class="page-header">
-              <h1 id="forms">European Options</h1>
+              <h1 id="forms">Least Square Options</h1>
             </div>
           </div>
         </div>
@@ -65,45 +65,55 @@
         <div class="row">
           <div class="col-lg-6">
             <div class="bs-component">
-              <form action="/montecarlo/euro_montecarlo/" method="POST">
+              <form action="/montecarlo/least_square_montecarlo/" method="POST">
                 {% csrf_token %}
                 <fieldset>
                   <div class="form-group">
-                    <label for="initial_value">Initial value</label>
-                    <input type="number" step=0.01 class="form-control" id="initial_value" name="initial_value"aria-describedby="intial_valueHelp" placeholder="Initial Value">
-                    <small id="initial_valueHelp" class="form-text text-muted">{{ error_intial_value }}</small>
-                  </div>
-                  <div class="form-group">
-                    <label for="strike_price">Strike Price</label>
-                    <input type="number" step=0.01 class="form-control" id="strike_price" name="strike_price"  aria-describedby="strike_priceHelp" placeholder="Strike Price">
-                    <small id="strike_priceHelp" class="form-text text-muted">{{ error_strike_price }}</small>
-                  </div>
-                  <div class="form-group">
-                    <label for="maturity">Maturity</label>
-                    <input type="number" step=0.01 class="form-control" id="maturity" name="maturity" aria-describedby="maturityHelp" placeholder="Maturity">
-                    <small id="maturityHelp" class="form-text text-muted">{{ error_maturity }}</small>
+                    <label for="initial_stock_price">Initial Stock Price</label>
+                    <input type="number" step=0.01 class="form-control" id="initial_stock_price" name="initial_stock_price" aria-describedby="initial_stock_priceHelp" placeholder="Initial Stock Price">
+                    <small id="initial_stock_priceHelp" class="form-text text-muted">{{ error_initial_stock_price }}</small>
                   </div>
 
                   <div class="form-group">
-                    <label for="risk">Risk</label>
-                    <input type="number" step=0.01 class="form-control" id="risk" name="risk" aria-describedby="riskHelp" placeholder="Risk">
-                    <small id="riskHelp" class="form-text text-muted">{{ error_risk }}</small>
+                    <label for="strike">Strike</label>
+                    <input type="numbers" step=0.01 class="form-control" id="strike" name="strike" aria-describedby="strikeHelp" placeholder="Strike">
+                    <small id="strikeHelp" class="form-text text-muted">{{ error_strike }}</small>
                   </div>
 
                   <div class="form-group">
                     <label for="volatility">Volatility</label>
                     <input type="number" step=0.01 class="form-control" id="volatility" name="volatility" aria-describedby="volatilityHelp" placeholder="Volatility">
                     <small id="volatilityHelp" class="form-text text-muted">{{ error_volatility }}</small>
-                  </div>
+                 </div>
+
+                 <div class="form-group">
+                   <label for="rate">Risk Free Rate</label>
+                   <input type="number" step=0.01 class="form-control" id="risk" name="risk" aria-describedby="riskHelp" placeholder="Risk Free Rate">
+                   <small id="riskHelp" class="form-text text-muted">{{ error_risk }}</small>
+                 </div>
+
                   <div class="form-group">
-                    <label for="time_steps">Time Steps</label>
-                    <input type="number" step=0.01 class="form-control" id="time_steps" name="time_steps" aria-describedby="time_stepsHelp" placeholder="Time Steps">
-                    <small id="time_stepsHelp" class="form-text text-muted">{{ error_time_steps }}</small>
+                    <label for="time_to_maturity">Time to Maturity</label>
+                    <input type="number" step=0.01 class="form-control" id="time_to_maturity" name="time_to_maturity" aria-describedby="time_to_maturityHelp" placeholder="Time to Maturity">
+                    <small id="time_to_maturityHelp" class="form-text text-muted">{{ error_time_to_maturity }}</small>
                   </div>
+
                   <div class="form-group">
-                    <label for="num_paths">Num Paths</label>
-                    <input type="numbers" step=0.01 class="form-control" id="num_paths" name="num_paths" aria-describedby="num_pathsHelp" placeholder="Num Path">
-                    <small id="num_pathsHelp" class="form-text text-muted">{{ error_num_paths }}</small>
+                    <label for="granularity_for_time">Granularity For Time</label>
+                    <input type="number" step=0.01 class="form-control" id="granularity_for_time" name="granularity_for_time" aria-describedby="granularity_for_timeHelp" placeholder="Granularity For Time">
+                    <small id="granularity_for_timeHelp" class="form-text text-muted">{{ error_granularity_for_time }}</small>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="n_simulations">Number of Simulation</label>
+                    <input type="number" step=0.01 class="form-control" id="n_simulations" name="n_simulations"  aria-describedby="n_simulationHelp" placeholder="Number of Simulation">
+                    <small id="n_simulationHelp" class="form-text text-muted">{{ error_n_simulation }}</small>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="dividend_yield">Dividend Yield</label>
+                    <input type="number" step=0.01 class="form-control" id="dividend_yield" name="dividend_yield" aria-describedby="dividend_yieldHelp" placeholder="Dividend Yield">
+                    <small id="dividend_yieldHelp" class="form-text text-muted">{{ error_dividend_yield }}</small>
                   </div>
 
                   <button type="submit" class="btn btn-primary">Submit</button>

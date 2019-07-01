@@ -1,6 +1,15 @@
 # Pipfile
 
 [requires]
-python_version = "3.6.4"
+python_version = "3.6.6"
 
 [packages]
+django = "*"
+gunicorn = "*"
+django-heroku = "*"
+slackclient = "*"
+boto = "*"
+google-cloud-language ="*"
+dj_database_url="*"
+django-toolbelt="*"
+django-mathfilters="*"
