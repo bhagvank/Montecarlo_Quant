@@ -48,7 +48,7 @@ except Exception as e:
 # Application definition
 
 INSTALLED_APPS = [
-    'nlp.apps.NLPConfig',
+    'montecarlo.apps.MonteCarloConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -143,7 +143,7 @@ LOGGING = {
         'file': {
             'level': 'INFO',
             'class': 'logging.FileHandler',
-            'filename': 'slacknlp.log',
+            'filename': 'montecarlo.log',
         },
         'console': {
             'level': 'INFO',
@@ -161,10 +161,10 @@ LOGGING = {
             'level': 'ERROR',
             'propagate': True,
         },
-        'nlp': {
+        'montecarlo': {
             'handlers': ['file']
         },
-        'nlp_logger': {
+        'montecarlo_logger': {
             'handlers': ['file'],
             'level': os.getenv('DJANGO_LOG_LEVEL', 'INFO'),
         },
