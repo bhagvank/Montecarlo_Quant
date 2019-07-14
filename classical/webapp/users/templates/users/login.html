@@ -1,0 +1,72 @@
+{% load crispy_forms_tags %}
+{% load staticfiles %}
+<!DOCTYPE html>
+<head>
+<link rel="stylesheet" href="{% static 'montecarlo/bootstrap.css' %}">
+<link rel="stylesheet" href="{% static 'montecarlo/custom.min.css' %}">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>{% block title %}Monte Carlo Quant{% endblock %}</title>
+
+</head>
+
+<body style="background:#5295E8">
+
+
+
+{% block header %}
+<div class="container-fluid" style="display:flex;justify-content:center;border:0px solid red;flex-direction:column ;" >
+
+      <div class="page-header col-lg-4" id="banner" style="border:1px solid #ddd;margin-left:30vw;background:white;border-radius:5px">
+        <div class="row">
+          <div class="col-lg-6 col-md-7 col-sm-6 mt-4 " style="border:0px solid red">
+            <h1>Monte Carlo</h1>
+            <p class="lead" > Monte Carlo Quant</p>
+          </div>
+            <div class="col-lg-6" >
+                <img src="{% static 'montecarlo/images/logo.png' %}" width="150" height="150" class="center" align="middle" style="margin-left:5vw">
+            </div>
+        </div>
+      </div>
+
+
+{% endblock %}
+
+{% block content %}
+
+<div class="col-lg-4" style="border:1px solid #ddd;margin-left:30vw;background:white;border-radius:5px">
+        <div class="row"  >
+          <div class="col-lg-12 ml-5">
+            <div class="page-header mt-4" >
+              <h1 id="forms" style="font-size:3.5vh">Login</h1>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-lg-8 ml-5">
+           <div class="content-section" >
+              <form  method="post">
+                {% csrf_token %}
+                <fieldset class="form-group">
+
+                  {{ form|crispy }}
+                </fieldset>
+                <div class="form-group  ">
+                  <button class="btn btn-outline-info" type="submit" name="button">Log in</button>
+
+                </div>
+              </form>
+              <div class="mt-2 py-3">
+                <small class="text-muted">
+                  Need an account?<a class="ml-2" href="{% url 'register' %}"> Register</a>
+                </small>
+              </div>
+            </div>
+         </div>
+       </div>
+</div>
+
+ {% endblock %}
+</div>
+ </body>
+ </html>

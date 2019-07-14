@@ -6,7 +6,7 @@ from django.urls import reverse
 from django.views import generic
 from django.utils import timezone
 from django.template import loader
-from .models import SlackUser
+#from .models import SlackUser
 from time import time
 import math
 from math import exp, sqrt, log
@@ -24,7 +24,6 @@ from random import gauss, seed
 
 import os
 import logging
-import base64
 
 logger = logging.getLogger("montecarlo_logger")
 
@@ -36,50 +35,50 @@ def logout(request):
     template_name = 'montecarlo/login.html'
     return render(request, template_name)
 
-@requires_csrf_token
-def authenticate(request):
-    print("authenticating")
-    username = request.POST['useremail']
-    password = request.POST['password']
-
-
-
-    logger.info("authenticate username "+username )
-
-
-    error_password = None
-    try:
-       user = get_object_or_404(SlackUser, username=username)
-    except:
-       template_name = 'montecarlo/login.html'
-       error_username = "Invalid username"
-       context = {'error_useremail': error_username,
-                'error_password': error_password}
-       return render(request, template_name,context)
-
-    if user:
-       check, error_username, error_password = user.authenticate(username, password)
-       print(check,error_username,error_password)
-       if check:
-
-          template_name = 'montecarlo/main.html'
-          logger.info("authenticated username "+username)
-
-       else :
-         print("setting template as login")
-         template_name = 'montecarlo/login.html'
-         logger.info("authenticate failure username "+username )
-
-    else :
-        print("setting template as login")
-        template_name = 'montecarlo/login.html'
-        error_username = "Invalid username"
-        logger.info("validation failure username "+username )
-
-    context = {'error_useremail': error_username,
-                'error_password': error_password}
-
-    return render(request, template_name,context)
+# @requires_csrf_token
+# def authenticate(request):
+#     print("authenticating")
+#     username = request.POST['useremail']
+#     password = request.POST['password']
+#
+#
+#
+#     logger.info("authenticate username "+username )
+#
+#
+#     error_password = None
+#     try:
+#        user = get_object_or_404(SlackUser, username=username)
+#     except:
+#        template_name = 'montecarlo/login.html'
+#        error_username = "Invalid username"
+#        context = {'error_useremail': error_username,
+#                 'error_password': error_password}
+#        return render(request, template_name,context)
+#
+#     if user:
+#        check, error_username, error_password = user.authenticate(username, password)
+#        print(check,error_username,error_password)
+#        if check:
+#
+#           template_name = 'montecarlo/main.html'
+#           logger.info("authenticated username "+username)
+#
+#        else :
+#          print("setting template as login")
+#          template_name = 'montecarlo/login.html'
+#          logger.info("authenticate failure username "+username )
+#
+#     else :
+#         print("setting template as login")
+#         template_name = 'montecarlo/login.html'
+#         error_username = "Invalid username"
+#         logger.info("validation failure username "+username )
+#
+#     context = {'error_useremail': error_username,
+#                 'error_password': error_password}
+#
+#     return render(request, template_name,context)
 
 
 def main(request):
@@ -91,61 +90,61 @@ def signup(request):
     template_name = 'montecarlo/signup.html'
     return render(request, template_name)
 
-def signin(request):
-    username = request.POST['useremail']
-    password = request.POST['password']
-    confirmPassword = request.POST['confirmPassword']
-    print("password, confirmPassword",password,confirmPassword)
+# def signin(request):
+#     username = request.POST['useremail']
+#     password = request.POST['password']
+#     confirmPassword = request.POST['confirmPassword']
+#     print("password, confirmPassword",password,confirmPassword)
+#
+#
+#     error_confirm_password = None
+#     error_username = None
+#     error_password = None
+#
+#     error_username = _validate_username(username)
+#     error_password, error_confirm_password = _validate_password(password,confirmPassword)
+#
+#     if error_username == None and error_password == None and error_confirm_password == None:
+#        if password == confirmPassword:
+#           user = SlackUser(username=username,password=password)
+#           user.save()
+#
+#           template_name = 'montecarlo/login.html'
+#        else :
+#           template_name = 'montecarlo/signup.html'
+#     else :
+#             template_name = 'montecarlo/signup.html'
+#
+#     context = {'error_confirm_password': error_confirm_password,
+#                 'error_useremail': error_username,
+#                 'error_password': error_password
+#                 }
+#     return render(request, template_name,context)
 
 
-    error_confirm_password = None
-    error_username = None
-    error_password = None
-
-    error_username = _validate_username(username)
-    error_password, error_confirm_password = _validate_password(password,confirmPassword)
-
-    if error_username == None and error_password == None and error_confirm_password == None:
-       if password == confirmPassword:
-          user = SlackUser(username=username,password=password)
-          user.save()
-
-          template_name = 'montecarlo/login.html'
-       else :
-          template_name = 'montecarlo/signup.html'
-    else :
-            template_name = 'montecarlo/signup.html'
-
-    context = {'error_confirm_password': error_confirm_password,
-                'error_useremail': error_username,
-                'error_password': error_password
-                }
-    return render(request, template_name,context)
+# def index(request):
+#
+#     page,count = _parsePage(request)
+#
+#
+#
+#     print("page", page)
+#     channels,nextCursor = slack.listChannelsPage(page,count)
+#     template_name = 'montecarlo/index.html'
+#     context = {'channels': channels,
+#                 'nextCursor': nextCursor
+#                 }
+#     return render(request, template_name, context)
 
 
-def index(request):
-
-    page,count = _parsePage(request)
-
-
-
-    print("page", page)
-    channels,nextCursor = slack.listChannelsPage(page,count)
-    template_name = 'montecarlo/index.html'
-    context = {'channels': channels,
-                'nextCursor': nextCursor
-                }
-    return render(request, template_name, context)
-
-
-def _validate_username(username):
-    error_username = None
-    if username == None:
-       error_username = "user email is blank"
-
-    if "@" not in username or "." not in username :
-       error_username = "user email is not valid"
-    return error_username
+# def _validate_username(username):
+#     error_username = None
+#     if username == None:
+#        error_username = "user email is blank"
+#
+#     if "@" not in username or "." not in username :
+#        error_username = "user email is not valid"
+#     return error_username
 
 
 def euro_option(request):
