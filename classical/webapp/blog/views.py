@@ -20,7 +20,7 @@ def home(request):
 
 class PostListView(LoginRequiredMixin,ListView):
     model = Post
-    template_name = 'blog/home.html'  # <app>/<model>_<viewtype>.html
+    template_name = 'blog/home.html'
     context_object_name = 'posts'
     ordering = ['-Date_Posted']
     paginate_by = 5
@@ -28,7 +28,7 @@ class PostListView(LoginRequiredMixin,ListView):
 
 class UserPostListView(ListView):
     model = Post
-    template_name = 'blog/user_posts.html'  # <app>/<model>_<viewtype>.html
+    template_name = 'blog/user_posts.html'
     context_object_name = 'posts'
     paginate_by = 5
 
@@ -75,7 +75,3 @@ class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
         if self.request.user == post.author:
             return True
         return False
-
-
-def about(request):
-    return render(request, 'blog/about.html')
