@@ -94,8 +94,9 @@ pipenv shell
    
 5. run locally using settings (update the database username and password)
 ```
-python3 manage.py migrate --settings=mysite.run_settings
-python3 manage.py runserver --settings=mysite.run_settings
+python3 manage.py makemigrations
+python3 manage.py migrate --settings=django_project.rsettings
+python3 manage.py runserver --settings=django_project.settings
 
 ```
 
