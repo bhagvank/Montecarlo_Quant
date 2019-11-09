@@ -4,14 +4,14 @@
   <artifactId>MonteCarlo</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <packaging>war</packaging>
-  <dependencies>
+ <dependencies>
     <dependency>
     <groupId>javax.servlet</groupId>
     <artifactId>javax.servlet-api</artifactId>
     <version>3.1.0</version>
     <scope>provided</scope>
 </dependency>
-    </dependencies>    
+    </dependencies>
   <build>
     <sourceDirectory>src</sourceDirectory>
     <plugins>
@@ -23,13 +23,10 @@
           <target>1.8</target>
         </configuration>
       </plugin>
-      <plugin>
+<plugin>
         <artifactId>maven-war-plugin</artifactId>
-        <version>3.0.0</version>
-        <configuration>
-          <warSourceDirectory>WebContent</warSourceDirectory>
-        </configuration>
-      </plugin>
+   <version>3.0.0</version>
+    </plugin>
     </plugins>
   </build>
 </project>
