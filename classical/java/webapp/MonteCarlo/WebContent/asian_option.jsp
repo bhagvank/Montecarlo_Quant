@@ -37,26 +37,26 @@
 <form action="AsianOption" method="post">
   <div class="container">
   	<h2>Asian Option</h2><br>
-    <label for="T">T</label>
-    <input type="text" placeholder="Enter T value" name="T" required>
+    <label for="T">Maturity(in years)</label>
+    <input type="text" placeholder="Enter Maturity(in years)" name="T" required>
 
-    <label for="r">r</label>
-    <input type="text" placeholder="Enter r value" name="r" required>
+    <label for="r">Risk Free Rate</label>
+    <input type="text" placeholder="Enter Risk Free Rate" name="r" required>
     
-    <label for="vol">vol</label>
-    <input type="text" placeholder="Enter vol value" name="vol" required>
+    <label for="vol">Volatility</label>
+    <input type="text" placeholder="Enter Volatility" name="vol" required>
 
-    <label for="dt">dt</label>
-    <input type="text" placeholder="Enter dt value" name="dt" required>
+    <label for="dt">Time Step Of One Day</label>
+    <input type="text" placeholder="Enter Time Step Of One Day" name="dt" required>
     
-    <label for="S0">S0</label>
-    <input type="text" placeholder="Enter S0 value" name="S0" required>
+    <label for="S0">Today Stock Price</label>
+    <input type="text" placeholder="Enter Today Stock Price" name="S0" required>
 
-    <label for="K">K</label>
-    <input type="text" placeholder="Enter K value" name="K" required>
+    <label for="K">Exercise Price</label>
+    <input type="text" placeholder="Enter Excercise Price" name="K" required>
     
-    <label for="sims">sims</label>
-    <input type="text" placeholder="Enter sims value" name="sims" required>
+    <label for="sims">Number Of Simulations</label>
+    <input type="text" placeholder="Enter Number Of Simulations" name="sims" required>
         
     <button class="loginbtn" type="submit">Generate result</button>
   </div>

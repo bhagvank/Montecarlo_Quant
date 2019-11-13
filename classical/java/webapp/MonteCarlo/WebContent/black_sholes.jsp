@@ -37,20 +37,20 @@
 <form action="BlackSholes" method="post">
   <div class="container">
   	<h2>Black Sholes</h2><br>
-    <label for="s">s</label>
-    <input type="text" placeholder="Enter s value" name="s" required>
+    <label for="s">Underlying price</label>
+    <input type="text" placeholder="Enter Underlying Price" name="s" required>
 
-    <label for="x">x</label>
-    <input type="text" placeholder="Enter x value" name="x" required>
+    <label for="x">Vol</label>
+    <input type="text" placeholder="Enter Vol" name="x" required>
     
-    <label for="r">r</label>
-    <input type="text" placeholder="Enter r value" name="r" required>
+    <label for="r">Rate</label>
+    <input type="text" placeholder="Enter Rate" name="r" required>
 
-    <label for="sigma">sigma</label>
-    <input type="text" placeholder="Enter sigma value" name="sigma" required>
+    <label for="sigma">K</label>
+    <input type="text" placeholder="Enter K" name="sigma" required>
     
-    <label for="t">t</label>
-    <input type="text" placeholder="Enter t value" name="t" required>
+    <label for="t">Simulations</label>
+    <input type="text" placeholder="Enter Simulations" name="t" required>
    
     <button class="loginbtn" type="submit">Generate result</button>
   </div>
