@@ -19,11 +19,11 @@ public class EuropeanOption extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		EuropeanOption eo = new EuropeanOption();
 		double stock_price = Double.parseDouble(request.getParameter("stock_price")); 
-        int strike_price = 0; 
+        double strike_price = Double.parseDouble(request.getParameter("strike_price")); 
         double interest_rate = Double.parseDouble(request.getParameter("interest_rate")); 
-        int numberOfSteps = 0; 
+        int numberOfSteps = Integer.parseInt(request.getParameter("numberOfSteps")); 
         double timeTillExpiration = Double.parseDouble(request.getParameter("timeTillExpiration")); 
-        int numberOfComputations = 0; 
+        int numberOfComputations = Integer.parseInt(request.getParameter("numberOfComputations")); 
         double volatility = Double.parseDouble(request.getParameter("volatility")); 
         double totalPayoff = Double.parseDouble(request.getParameter("totalPayoff"));
         double averagePayoff = Double.parseDouble(request.getParameter("averagePayoff"));
@@ -34,7 +34,7 @@ public class EuropeanOption extends HttpServlet {
         out.println("Result is "+O);
 	}
 	
-	public double europeanOption(double stock_price, int strike_price, double interest_rate, int numberOfSteps, double timeTillExpiration, int numberOfComputations, double volatility, double totalPayoff, double averagePayoff, double compundRate)
+	public double europeanOption(double stock_price, double strike_price, double interest_rate, int numberOfSteps, double timeTillExpiration, int numberOfComputations, double volatility, double totalPayoff, double averagePayoff, double compundRate)
 	{
 		EuropeanOption eo = new EuropeanOption();
 		double O;
@@ -49,7 +49,7 @@ public class EuropeanOption extends HttpServlet {
         return O;
 	}
 
-	public double getPayoffs(int N, double S, double r, double T, double sigma, int P){
+	public double getPayoffs(int N, double S, double r, double T, double sigma, double P){
         int eta;  
         int n = 0;
         double tempS = S;

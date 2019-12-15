@@ -51,6 +51,9 @@
     
     <label for="timeTillExpiration">timeTillExpiration</label>
     <input type="text" placeholder="Enter timeTillExpiration value" name="timeTillExpiration" required>
+    
+    <label for="timeTillExpiration">numberOfComputations</label>
+    <input type="text" placeholder="Enter numberOfComputations value" name="numberOfComputations" required>
 
     <label for="volatility">volatility</label>
     <input type="text" placeholder="Enter volatility value" name="volatility" required>
