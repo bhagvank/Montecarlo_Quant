@@ -67,7 +67,7 @@ exit
 ```
 
 # Instructions for setting up locally - classical/webapp
-1. Ensure that mysql is installed, python3 and django for polls app - mysite folder.
+1. Ensure that mysql is installed, python3 and django
 
   * [Python3](https://www.python.org/downloads/)
 
